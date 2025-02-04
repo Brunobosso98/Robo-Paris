@@ -179,4 +179,4 @@ if __name__ == "__main__":
 
 # Após encontrar, deve pegar o valor do HTML da linha atual, exemplo do elemento (<td class="w-3p">4</td>) pelo XPATH da onde o loop está (verificando o histórico pelo excel)
     # E deve fazer com que o valor do input seja: field-(valor do elemento)-0'
-    # O segundo input deverá ficar assim?  field-(valor do elemento)-1'
+    # O segundo input deverá ficar assim:  field-(valor do elemento)-1'
