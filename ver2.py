@@ -13,7 +13,7 @@ import time
 from datetime import datetime
 import json
 import tkinter as tk
-from tkinter import messagebox
+from tkinter import ttk, messagebox
 import sys
 
 # Configuração de logging
@@ -187,6 +187,7 @@ def processar_historicos(driver, wait):
             # Clicar no botão 'cadRelac' da linha atual
             # botao_adicionar = wait.until(EC.element_to_be_clickable(
             #     ((By.XPATH, f'//*[@id="accordion_parent"]/tr[{i}]/td[last()]/div/button[contains(@class, "cadRelac")]'))))
+            # # //*[@id="accordion_parent"]/tr[{i}]/td[7]/div/button[1]
             # botao_adicionar.click()
             # logger.info(f"Botão 'cadRelac' da linha {i} clicado com sucesso!")
 
@@ -276,75 +277,172 @@ def mover_arquivo(empresa, data_inicial):
         print("Arquivo não encontrado para mover")
 
 def criar_interface():
-    """Cria uma interface gráfica para entrada de data."""
+    """Cria uma interface gráfica moderna com design aprimorado."""
     def iniciar_processamento():
         global data_inicial_global, data_final_global
         try:
-            dia_inicial = entry_dia_inicial.get().zfill(2)  # Adiciona zero à esquerda se necessário
-            mes_inicial = entry_mes_inicial.get().zfill(2)  # Adiciona zero à esquerda se necessário
-            ano_inicial = int(entry_ano_inicial.get())
-            dia_final = entry_dia_final.get().zfill(2)  # Adiciona zero à esquerda se necessário
-            mes_final = entry_mes_final.get().zfill(2)  # Adiciona zero à esquerda se necessário
-            ano_final = int(entry_ano_final.get())
+            # Obter e validar valores
+            campos = [
+                entry_dia_inicial.get(),
+                entry_mes_inicial.get(),
+                entry_ano_inicial.get(),
+                entry_dia_final.get(),
+                entry_mes_final.get(),
+                entry_ano_final.get()
+            ]
+            
+            if not all(campos):
+                raise ValueError("Preencha todos os campos")
+                
+            dia_inicial = campos[0].zfill(2)
+            mes_inicial = campos[1].zfill(2)
+            ano_inicial = campos[2]
+            dia_final = campos[3].zfill(2)
+            mes_final = campos[4].zfill(2)
+            ano_final = campos[5]
 
-            # Validação das datas
-            if not (1 <= int(dia_inicial) <= 31):
-                raise ValueError("Dia inicial deve estar entre 01 e 31.")
-            if not (1 <= int(mes_inicial) <= 12):
-                raise ValueError("Mês inicial deve estar entre 01 e 12.")
-            if not (1 <= int(dia_final) <= 31):
-                raise ValueError("Dia final deve estar entre 01 e 31.")
-            if not (1 <= int(mes_final) <= 12):
-                raise ValueError("Mês final deve estar entre 01 e 12.")
+            # Validação numérica
+            valores = [
+                (int(dia_inicial), "Dia inicial", 1, 31),
+                (int(mes_inicial), "Mês inicial", 1, 12),
+                (int(dia_final), "Dia final", 1, 31),
+                (int(mes_final), "Mês final", 1, 12)
+            ]
+            
+            for valor, nome, minimo, maximo in valores:
+                if not (minimo <= valor <= maximo):
+                    raise ValueError(f"{nome} deve estar entre {minimo:02d} e {maximo:02d}")
 
             data_inicial_global = f"{dia_inicial}/{mes_inicial}/{ano_inicial}"
             data_final_global = f"{dia_final}/{mes_final}/{ano_final}"
 
             messagebox.showinfo("Sucesso", f"Processando de {data_inicial_global} a {data_final_global}")
-            root.quit()  # Fecha a interface após a entrada bem-sucedida
+            root.quit()
         except ValueError as e:
             messagebox.showerror("Erro", str(e))
         except Exception as e:
-            messagebox.showerror("Erro", f"Erro ao processar: {str(e)}")
+            messagebox.showerror("Erro", f"Erro inesperado: {str(e)}")
+
+    def on_entry_click(event):
+        """Remove the placeholder text on click."""
+        if event.widget.get() == event.widget.placeholder:
+            event.widget.delete(0, "end")  # Remove placeholder
+            event.widget.config(foreground='black')  # Change text color to black
 
     root = tk.Tk()
-    root.title("Interface de Processamento")
+    root.title("Seletor de Datas Premium")
+    root.minsize(400, 450)
+    root.configure(bg='#2a2a2a')
 
-    # Configurar o evento de fechamento da janela
+    # Estilo personalizado
+    style = ttk.Style()
+    style.theme_use('clam')
+    
+    # Configurações de estilo
+    style.configure('TFrame', background='#363636')
+    style.configure('TLabel', background='#363636', foreground='#ffffff', font=('Segoe UI', 10))
+    style.configure('TButton', font=('Segoe UI', 10, 'bold'), borderwidth=0)
+    style.map('TButton',
+              background=[('active', '#45a7ff'), ('!active', '#0078d4')],
+              foreground=[('active', '#ffffff'), ('!active', '#ffffff')])
+
+    # Container principal
+    main_frame = ttk.Frame(root, style='TFrame')
+    main_frame.pack(padx=30, pady=30, fill='both', expand=True)
+
+    # Título
+    ttk.Label(main_frame, text="Seletor de Período", font=('Segoe UI', 14, 'bold'), 
+             foreground='#45a7ff', background='#363636').pack(pady=(0, 20))
+
+    # Container das datas
+    date_container = tk.Canvas(main_frame, bg='#363636', highlightthickness=0)
+    date_container.pack()
+
+    def create_date_frame(parent, title):
+        """Cria um frame estilizado para cada grupo de datas"""
+        frame = tk.Frame(parent, bg='#454545', bd=0, highlightthickness=0)
+        
+        # Borda decorativa
+        tk.Frame(frame, bg='#45a7ff', height=2).pack(fill='x')
+        ttk.Label(frame, text=title, font=('Segoe UI', 9, 'bold'), 
+                 background='#454545', foreground='#ffffff').pack(pady=8)
+        
+        return frame
+
+    # Data Inicial
+    frame_inicial = create_date_frame(date_container, "DATA INICIAL")
+    frame_inicial.pack(pady=10, ipadx=15, ipady=5)
+
+    campos_inicial = [
+        ("Dia", "DD", frame_inicial),
+        ("Mês", "MM", frame_inicial),
+        ("Ano", "AAAA", frame_inicial)
+    ]
+
+    entries_inicial = []
+    for idx, (label, placeholder, frame) in enumerate(campos_inicial):
+        ttk.Label(frame, text=label).pack(anchor='w', padx=10)
+        entry = ttk.Entry(frame, width=15, font=('Segoe UI', 10))
+        entry.placeholder = placeholder  # Store placeholder
+        entry.insert(0, placeholder)
+        entry.config(foreground='grey')  # Set placeholder color
+        entry.bind("<FocusIn>", on_entry_click)  # Bind click event
+        entry.pack(padx=10, pady=(0, 10 if idx < 2 else 0))
+        entries_inicial.append(entry)
+
+    entry_dia_inicial, entry_mes_inicial, entry_ano_inicial = entries_inicial
+
+    # Data Final
+    frame_final = create_date_frame(date_container, "DATA FINAL")
+    frame_final.pack(pady=10, ipadx=15, ipady=5)
+
+    campos_final = [
+        ("Dia", "DD", frame_final),
+        ("Mês", "MM", frame_final),
+        ("Ano", "AAAA", frame_final)
+    ]
+
+    entries_final = []
+    for idx, (label, placeholder, frame) in enumerate(campos_final):
+        ttk.Label(frame, text=label).pack(anchor='w', padx=10)
+        entry = ttk.Entry(frame, width=15, font=('Segoe UI', 10))
+        entry.placeholder = placeholder  # Store placeholder
+        entry.insert(0, placeholder)
+        entry.config(foreground='grey')  # Set placeholder color
+        entry.bind("<FocusIn>", on_entry_click)  # Bind click event
+        entry.pack(padx=10, pady=(0, 10 if idx < 2 else 0))
+        entries_final.append(entry)
+
+    entry_dia_final, entry_mes_final, entry_ano_final = entries_final
+
+    # Botão estilizado
+    btn_style = ttk.Style()
+    btn_style.configure('Modern.TButton', 
+                       background='#0078d4', 
+                       foreground='white',
+                       bordercolor='#0078d4',
+                       focuscolor='none',
+                       font=('Segoe UI', 10, 'bold'),
+                       padding=10)
+    
+    btn_style.map('Modern.TButton',
+                 background=[('active', '#005a9e'), ('!active', '#0078d4')],
+                 foreground=[('active', 'white'), ('!active', 'white')])
+
+    btn_processar = ttk.Button(main_frame, text="PROCESSAR", 
+                              style='Modern.TButton', 
+                              command=iniciar_processamento)
+    btn_processar.pack(pady=20, ipadx=30)
+
     root.protocol("WM_DELETE_WINDOW", sys.exit)
+    root.mainloop()
 
-    # Entradas para data inicial
-    tk.Label(root, text="Data Inicial").grid(row=0, columnspan=2)
-    tk.Label(root, text="Dia:").grid(row=1, column=0)
-    entry_dia_inicial = tk.Entry(root)
-    entry_dia_inicial.grid(row=1, column=1)
-
-    tk.Label(root, text="Mês:").grid(row=2, column=0)
-    entry_mes_inicial = tk.Entry(root)
-    entry_mes_inicial.grid(row=2, column=1)
-
-    tk.Label(root, text="Ano:").grid(row=3, column=0)
-    entry_ano_inicial = tk.Entry(root)
-    entry_ano_inicial.grid(row=3, column=1)
-
-    # Entradas para data final
-    tk.Label(root, text="Data Final").grid(row=4, columnspan=2)
-    tk.Label(root, text="Dia:").grid(row=5, column=0)
-    entry_dia_final = tk.Entry(root)
-    entry_dia_final.grid(row=5, column=1)
-
-    tk.Label(root, text="Mês:").grid(row=6, column=0)
-    entry_mes_final = tk.Entry(root)
-    entry_mes_final.grid(row=6, column=1)
-
-    tk.Label(root, text="Ano:").grid(row=7, column=0)
-    entry_ano_final = tk.Entry(root)
-    entry_ano_final.grid(row=7, column=1)
-
-    botao_processar = tk.Button(root, text="Processar", command=iniciar_processamento)
-    botao_processar.grid(row=8, columnspan=2)
-
-    root.mainloop()  # Mantém a interface aberta até que o botão seja clicado com sucesso
+# Adiciona a função de retângulo arredondado ao Canvas
+tk.Canvas.create_rounded_rectangle = lambda self, x1, y1, x2, y2, radius=25, **kwargs: self.create_polygon(
+    x1+radius, y1, x2-radius, y1, x2, y1, x2, y1+radius, x2, y2-radius, x2, y2,
+    x2-radius, y2, x1+radius, y2, x1, y2, x1, y2-radius, x1, y1+radius, x1, y1,
+    smooth=True, **kwargs
+)
 
 def main():
     criar_interface()  # Chama a função para criar a interface
