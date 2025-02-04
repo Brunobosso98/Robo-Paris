@@ -209,6 +209,10 @@ def preencher_campos(driver, wait, valor_elemento, dados):
         terceiro_input.send_keys(str(dados['Cré']))
         logger.info(f"Campo {terceiro_input_id} preenchido com: {dados['Cré']}")
 
+        botao_adicionar = wait.until(EC.element_to_be_clickable((By.CLASS_NAME, 'cadRelac ')))
+        botao_adicionar.click()
+        logger.info(f"Botão 'cadRelac' clicado com sucesso!")
+
     except Exception as e:
         logger.error(f"Erro ao preencher campos para ID {valor_elemento}: {str(e)}", exc_info=True)
 
