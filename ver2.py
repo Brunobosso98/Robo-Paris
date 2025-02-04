@@ -315,8 +315,8 @@ def criar_interface():
 
             data_inicial_global = f"{dia_inicial}/{mes_inicial}/{ano_inicial}"
             data_final_global = f"{dia_final}/{mes_final}/{ano_final}"
-
-            messagebox.showinfo("Sucesso", f"Processando de {data_inicial_global} a {data_final_global}")
+            # Aviso que as datam foram lidas e o programa irá iniciar
+            # messagebox.showinfo("Sucesso", f"Processando de {data_inicial_global} a {data_final_global}")
             root.quit()
         except ValueError as e:
             messagebox.showerror("Erro", str(e))

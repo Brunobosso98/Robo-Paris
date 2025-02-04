@@ -1406,3 +1406,247 @@ Stacktrace:
 2025-02-04 15:32:45,560 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Recebimento Pix Sicredi 05552601000120 Bicicleta (C)' na linha 74
 2025-02-04 15:32:46,628 - INFO - Página rolada para o topo.
 2025-02-04 15:32:52,437 - INFO - Botão 'Exportar' clicado com sucesso!
+2025-02-04 16:09:25,505 - INFO - ====== WebDriver manager ======
+2025-02-04 16:09:27,601 - INFO - Get LATEST chromedriver version for google-chrome
+2025-02-04 16:09:27,684 - INFO - Get LATEST chromedriver version for google-chrome
+2025-02-04 16:09:27,732 - INFO - Driver [C:\Users\bruno.martins\.wdm\drivers\chromedriver\win64\132.0.6834.159\chromedriver-win32/chromedriver.exe] found in cache
+2025-02-04 16:10:17,668 - INFO - Carregando mapeamento do Excel...
+2025-02-04 16:10:17,691 - INFO - Total de regras carregadas: 4
+2025-02-04 16:10:17,757 - INFO - Encontradas 74 linhas para processar
+2025-02-04 16:10:17,914 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Pagamento Pix 14756516866 Cláudio Aparecido Samo - Cláudio Aparecido Samogin (D)' na linha 1
+2025-02-04 16:10:18,036 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Deb. Folha Pagto (D)' na linha 2
+2025-02-04 16:10:18,160 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liquidacao Boleto 18191228000171 Pjbank Pagament (D)' na linha 3
+2025-02-04 16:10:18,223 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liquidacao Boleto 08979246000169 Polemassociacao (D)' na linha 4
+2025-02-04 16:10:18,282 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liquidacao Boleto 17819084000192 Pagcerto Instit (D)' na linha 5
+2025-02-04 16:10:18,340 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Plano Int Capital (D)' na linha 6
+2025-02-04 16:10:18,399 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Recebimento Pix 07590835000198 Psh Lerro Represe - Psh Lerro Representacao Comercial de Produtos Alimenticios Ltda (C)' na linha 7
+2025-02-04 16:10:18,491 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Tarifa Baixa de Titulos (D)' na linha 8
+2025-02-04 16:10:18,548 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Pagamento Pix 20376577000100 Monise Roberta Robl - Monise Roberta Robles 41583110801 (D)' na linha 9
+2025-02-04 16:10:18,605 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liquidacao Boleto Sicredi 79342069000153 Sicredi (D)' na linha 10
+2025-02-04 16:10:18,665 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liquidacao Boleto Sicredi 42177591000117 Jfa Com (D)' na linha 11
+2025-02-04 16:10:18,731 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liquidacao Boleto 12499520000170 Clicksign Gesta (D)' na linha 12
+2025-02-04 16:10:18,790 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liquidacao Boleto Sicredi 42177591000117 Jfa Com (D)' na linha 13
+2025-02-04 16:10:18,849 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liquidacao Boleto 7732866000136 Antonelli Superm (D)' na linha 14
+2025-02-04 16:10:18,911 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Recebimento Pix 38324197800 Bruno Marques Ribeir - Bruno Marques Ribeiro (C)' na linha 15
+2025-02-04 16:10:18,974 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Pagamento Pix 45592590890 Laleska Milena Teixeir - Laleska Milena Teixeira (D)' na linha 16
+2025-02-04 16:10:19,030 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liquidacao Boleto 64555626000147 Ao3 Tecnologia (D)' na linha 17
+2025-02-04 16:10:19,091 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liquidacao Boleto 33873004000133 Capital das Ces (D)' na linha 18
+2025-02-04 16:10:19,150 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liquidacao Boleto 44734176000142 Padaria E Merce (D)' na linha 19
+2025-02-04 16:10:19,209 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liquidacao Boleto 31445249000134 Weclix Telecom (D)' na linha 20
+2025-02-04 16:10:19,268 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Pagamento Pix 00394460005887 Receita Federal - Receita Federal (D)' na linha 21
+2025-02-04 16:10:19,326 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Pagamento Pix 00360305000104 Caixa Economica Fed - Caixa Economica Federal (D)' na linha 22
+2025-02-04 16:10:19,386 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Pagamento Pix 00394460005887 Ministerio da Fazen - Ministerio da Fazenda (D)' na linha 23
+2025-02-04 16:10:19,450 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Pagamento Pix 16649785857 Ricardo Samogin - Ricardo Samogin (D)' na linha 24
+2025-02-04 16:10:19,509 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Pagamento Pix 00394460005887 Receita Federal - Receita Federal (D)' na linha 25
+2025-02-04 16:10:19,569 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Tarifa Baixa de Titulos (D)' na linha 26
+2025-02-04 16:10:19,629 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Manutencao de Titulos (D)' na linha 27
+2025-02-04 16:10:19,691 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Pagamento Pix 10329094807 Benedito Aparecido Don - Benedito Aparecido Donisete Cardoso (D)' na linha 28
+2025-02-04 16:10:19,753 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Pagamento Pix 10233530000133 Vicente Zani Comuni - Vicente Zani Comunicacao Ltda (D)' na linha 29
+2025-02-04 16:10:19,812 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Pagamento Pix Sicredi 16599083889 Sidnei Pizi de (D)' na linha 30
+2025-02-04 16:10:19,874 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Recebimento Pix 04009808000190 Ferreira E Ferrei - Ferreira E Ferreira Advocacia (C)' na linha 31
+2025-02-04 16:10:19,933 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Pagamento Pix 31343701821 Fabio Borges de Olivei - Fabio Borges de Oliveira (D)' na linha 32
+2025-02-04 16:10:19,994 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Pagamento Pix 06890131835 Reinaldo Scholl - Reinaldo Scholl (D)' na linha 33
+2025-02-04 16:10:20,053 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Pagamento Pix 11382312000204 Supermercado Juriti - Supermercado Juritis Ltda. (D)' na linha 34
+2025-02-04 16:10:20,112 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Pagamento Pix 30777397803 Tiago Alexandre Pompeu - Tiago Alexandre Pompeu (D)' na linha 35
+2025-02-04 16:10:20,173 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Pagamento Pix 38195903000148 Maria Carolina Mart - Maria Carolina Martins 43900831807 (D)' na linha 36
+2025-02-04 16:10:20,232 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Pagamento Pix 14756516866 Cláudio Aparecido Samo - Cláudio Aparecido Samogin (D)' na linha 37
+2025-02-04 16:10:20,292 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Debito Convenios Id 155138605 Claro Movel 404325 (D)' na linha 38
+2025-02-04 16:10:20,352 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Pagamento Pix 16649785857 Ricardo Samogin - Ricardo Samogin (D)' na linha 39
+2025-02-04 16:10:20,411 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Pagamento Pix 24018540000160 A. Cristina Barbosa - A. Cristina Barbosa & Cia Ltda (D)' na linha 40
+2025-02-04 16:10:20,470 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Deb. Folha Pagto (D)' na linha 41
+2025-02-04 16:10:20,530 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Pagamento Pix 31343701821 Fabio Borges de Olivei - Fabio Borges de Oliveira (D)' na linha 42
+2025-02-04 16:10:20,589 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Pagamento Pix 16649785857 Ricardo Samogin - Ricardo Samogin (D)' na linha 43
+2025-02-04 16:10:20,648 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Pagamento Pix 14756516866 Cláudio Aparecido Samo - Cláudio Aparecido Samogin (D)' na linha 44
+2025-02-04 16:10:20,708 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liquidacao Boleto 17160849000478 Aurum Softmatic (D)' na linha 45
+2025-02-04 16:10:20,767 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Debito Convenios 45281144000100 Pmitz92-C (D)' na linha 46
+2025-02-04 16:10:20,829 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liquidacao Boleto 39375636000153 Cfiscal (D)' na linha 47
+2025-02-04 16:10:20,889 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liquidacao Boleto 32125987000167 Fiscontech Dese (D)' na linha 48
+2025-02-04 16:10:20,952 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liquidacao Boleto 1989200000181 Silvana Baiocchi (D)' na linha 49
+2025-02-04 16:10:21,015 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liquidacao Boleto Sicredi 22119327000110 L L Aut (D)' na linha 50
+2025-02-04 16:10:21,093 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liquidacao Boleto 51304798000104 Uniodonto C Coo (D)' na linha 51
+2025-02-04 16:10:21,173 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Debito Convenios Id 8999262361779 Vivo 025581570 (D)' na linha 52
+2025-02-04 16:10:21,252 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Debito Convenios Id 06816862868 Telesp 025581570 (D)' na linha 53
+2025-02-04 16:10:21,310 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Tarifa Baixa de Titulos (D)' na linha 54
+2025-02-04 16:10:21,370 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Manutencao de Titulos (D)' na linha 55
+2025-02-04 16:10:21,430 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Pagamento Pix 14756516866 Cláudio Aparecido Samo - Cláudio Aparecido Samogin (D)' na linha 56
+2025-02-04 16:10:21,488 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liq.Cobranca Simples (C)' na linha 57
+2025-02-04 16:10:21,548 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Tarifa Com R Liquidacao (D)' na linha 58
+2025-02-04 16:10:21,607 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Tarifa Com R Liquidacao (D)' na linha 59
+2025-02-04 16:10:21,666 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liq.Cobranca Simples (C)' na linha 60
+2025-02-04 16:10:21,728 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Tarifa Com R Liquidacao (D)' na linha 61
+2025-02-04 16:10:21,787 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Tarifa Com R Liquidacao (D)' na linha 62
+2025-02-04 16:10:21,847 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liq.Cobranca Simples (C)' na linha 63
+2025-02-04 16:10:21,909 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Tarifa Com R Liquidacao (D)' na linha 64
+2025-02-04 16:10:21,972 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liq.Cobranca Simples (C)' na linha 65
+2025-02-04 16:10:22,036 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Tarifa Com R Liquidacao (D)' na linha 66
+2025-02-04 16:10:22,095 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liq.Cobranca Simples (C)' na linha 67
+2025-02-04 16:10:22,157 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Tarifa Com R Liquidacao (D)' na linha 68
+2025-02-04 16:10:22,220 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liq.Cobranca Simples (C)' na linha 69
+2025-02-04 16:10:22,280 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Tarifa Com R Liquidacao (D)' na linha 70
+2025-02-04 16:10:22,339 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Tarifa Com R Liquidacao (D)' na linha 71
+2025-02-04 16:10:22,401 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liq.Cobranca Simples (C)' na linha 72
+2025-02-04 16:10:22,464 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Tarifa Com R Liquidacao (D)' na linha 73
+2025-02-04 16:10:22,527 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Recebimento Pix Sicredi 05552601000120 Bicicleta (C)' na linha 74
+2025-02-04 16:10:23,609 - INFO - Página rolada para o topo.
+2025-02-04 16:10:28,745 - INFO - Botão 'Exportar' clicado com sucesso!
+2025-02-04 16:12:07,443 - INFO - ====== WebDriver manager ======
+2025-02-04 16:12:09,279 - INFO - Get LATEST chromedriver version for google-chrome
+2025-02-04 16:12:09,342 - INFO - Get LATEST chromedriver version for google-chrome
+2025-02-04 16:12:09,387 - INFO - Driver [C:\Users\bruno.martins\.wdm\drivers\chromedriver\win64\132.0.6834.159\chromedriver-win32/chromedriver.exe] found in cache
+2025-02-04 16:12:57,895 - INFO - Carregando mapeamento do Excel...
+2025-02-04 16:12:57,925 - INFO - Total de regras carregadas: 4
+2025-02-04 16:12:57,979 - INFO - Encontradas 152 linhas para processar
+2025-02-04 16:12:58,064 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Recebimento Pix 08059154000160 Leonardo T M A - - Leonardo T M A - Me (C)' na linha 1
+2025-02-04 16:12:58,127 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Pagamento Pix 16759534816 Emerson Jose Alves de - Emerson Jose Alves de Souza (D)' na linha 2
+2025-02-04 16:12:58,189 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Resg.Aplic.Fin.Aviso Prev (C)' na linha 3
+2025-02-04 16:12:58,254 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Pagamento Pix 31343701821 Fabio Borges de Olivei - Fabio Borges de Oliveira (D)' na linha 4
+2025-02-04 16:12:58,314 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Pagamento Pix 31343701821 Fabio Borges de Olivei - Fabio Borges de Oliveira (D)' na linha 5
+2025-02-04 16:12:58,373 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Pagamento Pix 16649785857 Ricardo Samogin - Ricardo Samogin (D)' na linha 6
+2025-02-04 16:12:58,434 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Pagamento Pix 16649785857 Ricardo Samogin - Ricardo Samogin (D)' na linha 7
+2025-02-04 16:12:58,497 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liquidacao Boleto 8307849000114 2Eicon Sistema E (D)' na linha 8
+2025-02-04 16:12:58,558 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liquidacao Boleto 47866934000174 Ticket Servicos (D)' na linha 9
+2025-02-04 16:12:58,620 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liquidacao Boleto 51904027000140 Alecio Gotti Lt (D)' na linha 10
+2025-02-04 16:12:58,683 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Deb. Folha Pagto (D)' na linha 11
+2025-02-04 16:12:58,744 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liquidacao Boleto 910509001305 Thomson Reuters B (D)' na linha 12
+2025-02-04 16:12:58,807 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liquidacao Boleto 20947407000138 Sieg Solucoes I (D)' na linha 13
+2025-02-04 16:12:58,867 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liquidacao Boleto 18191228000171 Pjbank Pagament (D)' na linha 14
+2025-02-04 16:12:58,929 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liquidacao Boleto Sicredi 49918766000149 Papelar (D)' na linha 15
+2025-02-04 16:12:58,995 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liquidacao Boleto 17819084000192 Pagcerto Instit (D)' na linha 16
+2025-02-04 16:12:59,053 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liquidacao Boleto 389481000179 Lm Transp Inter S (D)' na linha 17
+2025-02-04 16:12:59,144 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liquidacao Boleto 49919863000156 Assoc Coml E Em (D)' na linha 18
+2025-02-04 16:12:59,202 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liquidacao Boleto 26939247000161 Conferir Tecnol (D)' na linha 19
+2025-02-04 16:12:59,268 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liquidacao Boleto 183296000123 Sesg Comercio E S (D)' na linha 20
+2025-02-04 16:12:59,371 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Tarifa Baixa de Titulos (D)' na linha 21
+2025-02-04 16:12:59,432 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Manutencao de Titulos (D)' na linha 22
+2025-02-04 16:12:59,500 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Debito Convenios 03795072000160 Sefazsp-G (D)' na linha 23
+2025-02-04 16:12:59,565 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Debito Convenios 03795072000160 Saaeita-C (D)' na linha 24
+2025-02-04 16:12:59,693 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Recebimento Pix Sicredi 24635002000115 Sems Biof (C)' na linha 25
+2025-02-04 16:12:59,757 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Debito Convenios 03795072000160 Sefazsp-G (D)' na linha 26
+2025-02-04 16:12:59,821 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Pagamento Pix 45481709000194 Amt Treinamento E D - Amt Treinamento E Desenvolvimento Humano Ltda. (D)' na linha 27
+2025-02-04 16:13:00,073 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Recebimento Pix 27012679867 Marcos Roberto Colsa - Marcos Roberto Colsato (C)' na linha 28
+2025-02-04 16:13:00,301 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Pagamento Pix 14756516866 Cláudio Aparecido Samo - Cláudio Aparecido Samogin (D)' na linha 29
+2025-02-04 16:13:00,366 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Pagamento Pix 29850427809 Rogeria de Jesus Range - Rogeria de Jesus Rangel (D)' na linha 30
+2025-02-04 16:13:00,432 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liquidacao Boleto 31865369000190 Mz Workspace Lt (D)' na linha 31
+2025-02-04 16:13:00,502 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liquidacao Boleto 33873004000133 Capital das Ces (D)' na linha 32
+2025-02-04 16:13:00,573 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liquidacao Boleto 7732866000136 Antonelli Superm (D)' na linha 33
+2025-02-04 16:13:00,644 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Debito Convenios 03795072000160 Sefazsp-G (D)' na linha 34
+2025-02-04 16:13:00,716 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Pagamento Pix 17351607000119 Jose Francisco Medi - Jose Francisco Medina 27767271862 (D)' na linha 35
+2025-02-04 16:13:00,779 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Pagamento Pix 77391675849 Laercio Samogin - Laercio Samogin (D)' na linha 36
+2025-02-04 16:13:00,843 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Debito Convenios Id 155138605 Claro Movel 404325 (D)' na linha 37
+2025-02-04 16:13:00,918 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Recebimento Pix 07590835000198 Psh Lerro Represe - Psh Lerro Representacao Comercial de Produtos Alimenticios Ltda (C)' na linha 38
+2025-02-04 16:13:00,989 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Recebimento Pix Sicredi 49917156000120 Casa de R (C)' na linha 39
+2025-02-04 16:13:01,087 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Deb. Folha Pagto (D)' na linha 40
+2025-02-04 16:13:01,180 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Manutencao de Titulos (D)' na linha 41
+2025-02-04 16:13:01,292 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Debito Convenios Id 8999262361779 Vivo 025581570 (D)' na linha 42
+2025-02-04 16:13:01,353 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Debito Convenios Id 06816862868 Telesp 025581570 (D)' na linha 43
+2025-02-04 16:13:01,411 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Recebimento Pix 19850786000164 Academia Bg - Academia Bg (C)' na linha 44
+2025-02-04 16:13:01,475 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Recebimento Pix 31343701821 Fabio Borges de Oliv - Fabio Borges de Oliveira (C)' na linha 45
+2025-02-04 16:13:01,538 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Debito Convenios 03795072000160 Sefazsp-G (D)' na linha 46
+2025-02-04 16:13:01,601 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Pagamento Pix 31343701821 Fabio Borges de Olivei - Fabio Borges de Oliveira (D)' na linha 47
+2025-02-04 16:13:01,665 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Recebimento Pix 30741667894 Reginaldo Pereira Co - Reginaldo Pereira Coelho (C)' na linha 48
+2025-02-04 16:13:01,774 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Recebimento Pix 01266812000146 Nutri Representac - Nutri Representacoes Ltda (C)' na linha 49
+2025-02-04 16:13:01,840 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liquidacao Boleto 17160849000478 Aurum Softmatic (D)' na linha 50
+2025-02-04 16:13:01,902 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Debito Convenios 45281144000100 Pmitz92-C (D)' na linha 51
+2025-02-04 16:13:01,967 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liquidacao Boleto 51304798000104 Uniodonto C Coo (D)' na linha 52
+2025-02-04 16:13:02,027 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liquidacao Boleto 39375636000153 Cfiscal (D)' na linha 53
+2025-02-04 16:13:02,092 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liquidacao Boleto 1989200000181 Silvana Baiocchi (D)' na linha 54
+2025-02-04 16:13:02,153 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liquidacao Boleto 32125987000167 Fiscontech Dese (D)' na linha 55
+2025-02-04 16:13:02,214 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liquidacao Boleto Sicredi 22119327000110 L L Aut (D)' na linha 56
+2025-02-04 16:13:02,275 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liquidacao Boleto Sicredi 01803861000170 Santos (D)' na linha 57
+2025-02-04 16:13:02,340 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liquidacao Boleto 49919863000156 Assoc Coml E Em (D)' na linha 58
+2025-02-04 16:13:02,399 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liquidacao Boleto 49919863000156 Assoc Coml E Em (D)' na linha 59
+2025-02-04 16:13:02,458 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liquidacao Boleto 49919863000156 Assoc Coml E Em (D)' na linha 60
+2025-02-04 16:13:02,519 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liquidacao Boleto 49919863000156 Assoc Coml E Em (D)' na linha 61
+2025-02-04 16:13:02,579 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liquidacao Boleto 49919863000156 Assoc Coml E Em (D)' na linha 62
+2025-02-04 16:13:02,643 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liquidacao Boleto 7707650000110 Aymore Credfine (D)' na linha 63
+2025-02-04 16:13:02,707 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liquidacao Boleto 49919863000156 Assoc Coml E Em (D)' na linha 64
+2025-02-04 16:13:02,774 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liquidacao Boleto 49919863000156 Assoc Coml E Em (D)' na linha 65
+2025-02-04 16:13:02,835 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liquidacao Boleto 49919863000156 Assoc Coml E Em (D)' na linha 66
+2025-02-04 16:13:02,899 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liquidacao Boleto 49919863000156 Assoc Coml E Em (D)' na linha 67
+2025-02-04 16:13:02,962 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liquidacao Boleto 49919863000156 Assoc Coml E Em (D)' na linha 68
+2025-02-04 16:13:03,025 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liquidacao Boleto 64555626000147 Ao3 Tecnologia (D)' na linha 69
+2025-02-04 16:13:03,092 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Tarifa Baixa de Titulos (D)' na linha 70
+2025-02-04 16:13:03,158 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Tarifas - Pgto Fornecedor Ted (D)' na linha 71
+2025-02-04 16:13:03,226 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Recebimento Pix 11737802000103 Irmaos Cavallaro - Irmaos Cavallaro Truck Center Ltda (C)' na linha 72
+2025-02-04 16:13:03,290 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Pagamento Pix 32885296887 Jose Alves de Souza - Jose Alves de Souza (D)' na linha 73
+2025-02-04 16:13:03,353 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Recebimento Pix 20330514000112 Donisete J Silva - Donisete J Silva - Me (C)' na linha 74
+2025-02-04 16:13:03,410 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Pagamento Pix 25678843869 Ricardo Salvan - Ricardo Salvan (D)' na linha 75
+2025-02-04 16:13:03,472 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liquidacao Boleto Sicredi 79342069000153 Sicredi (D)' na linha 76
+2025-02-04 16:13:03,570 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liquidacao Boleto 8307849000114 2Eicon Sistema E (D)' na linha 77
+2025-02-04 16:13:03,629 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liquidacao Boleto 24272451000146 Costa Engenhari (D)' na linha 78
+2025-02-04 16:13:03,689 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liquidacao Boleto 47866934000174 Ticket Servicos (D)' na linha 79
+2025-02-04 16:13:03,749 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Recebimento Pix 51618240000195 Prosper Holding P - Prosper Holding Patrimonial Ltda (C)' na linha 80
+2025-02-04 16:13:03,811 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Pagamento Pix 60298960834 Jose Francisco Zeferin - Jose Francisco Zeferino (D)' na linha 81
+2025-02-04 16:13:03,879 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liquidacao Boleto 33164021000100 Tokio Marine Se (D)' na linha 82
+2025-02-04 16:13:03,952 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liquidacao Boleto 7732866000136 Antonelli Superm (D)' na linha 83
+2025-02-04 16:13:04,018 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liquidacao Boleto 7732866000136 Antonelli Superm (D)' na linha 84
+2025-02-04 16:13:04,075 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Recebimento Pix 54812736000193 F R Palaria Ltda (C)' na linha 85
+2025-02-04 16:13:04,139 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Pagamento Pix 16649785857 Ricardo Samogin - Ricardo Samogin (D)' na linha 86
+2025-02-04 16:13:04,197 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Pagamento Pix 31343701821 Fabio Borges de Olivei - Fabio Borges de Oliveira (D)' na linha 87
+2025-02-04 16:13:04,258 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Pagamento Pix 14756516866 Cláudio Aparecido Samo - Cláudio Aparecido Samogin (D)' na linha 88
+2025-02-04 16:13:04,319 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Pagamento Pix 10251103000188 Cescon & Cescon Aut - Cescon & Cescon Auto Center Ltda (D)' na linha 89
+2025-02-04 16:13:04,383 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Pagamento Pix 00394460005887 Receita Federal - Receita Federal (D)' na linha 90
+2025-02-04 16:13:04,442 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Pagamento Pix 00360305000104 Caixa Economica Fed - Caixa Economica Federal (D)' na linha 91
+2025-02-04 16:13:04,501 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Pagamento Pix 00394460005887 Ministerio da Fazen - Ministerio da Fazenda (D)' na linha 92
+2025-02-04 16:13:04,562 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liquidacao Boleto 12499520000170 Clicksign Gesta (D)' na linha 93
+2025-02-04 16:13:04,623 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liquidacao Boleto 31445249000134 Weclix Telecom (D)' na linha 94
+2025-02-04 16:13:04,683 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liquidacao Boleto 64555626000147 Ao3 Tecnologia (D)' na linha 95
+2025-02-04 16:13:04,743 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Pagamento Pix 14756516866 Cláudio Aparecido Samo - Cláudio Aparecido Samogin (D)' na linha 96
+2025-02-04 16:13:04,805 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liquidacao Boleto 44734176000142 Padaria E Merce (D)' na linha 97
+2025-02-04 16:13:04,863 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Tarifa Baixa de Titulos (D)' na linha 98
+2025-02-04 16:13:04,924 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Manutencao de Titulos (D)' na linha 99
+2025-02-04 16:13:04,989 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Pagamento Pix 29850427809 Rogeria de Jesus Range - Rogeria de Jesus Rangel (D)' na linha 100
+2025-02-04 16:13:05,051 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Deb. Folha Pagto (D)' na linha 101
+2025-02-04 16:13:05,113 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Recebimento Pix 03978105000108 Audium Diagnostic - Audium Diagnostico E Reabilitacao da Com (C)' na linha 102
+2025-02-04 16:13:05,176 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liquidacao Boleto 8307849000114 2Eicon Sistema E (D)' na linha 103
+2025-02-04 16:13:05,238 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Pagamento Pix 43852274893 Alex Henrique Buzana - Alex Henrique Buzana (D)' na linha 104
+2025-02-04 16:13:05,298 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liquidacao Boleto 10573521000191 Mercado Pago In (D)' na linha 105
+2025-02-04 16:13:05,360 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Tarifa Baixa de Titulos (D)' na linha 106
+2025-02-04 16:13:05,426 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liquidacao Boleto 63002141000163 Conselho Region (D)' na linha 107
+2025-02-04 16:13:05,485 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Plano Int Capital (D)' na linha 108
+2025-02-04 16:13:05,545 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liquidacao Boleto 8979246000169 Polemassociacao (D)' na linha 109
+2025-02-04 16:13:05,606 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liquidacao Boleto 17819084000192 Pagcerto Instit (D)' na linha 110
+2025-02-04 16:13:05,665 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liquidacao Boleto 18191228000171 Pjbank Pagament (D)' na linha 111
+2025-02-04 16:13:05,730 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liquidacao Boleto 33873004000133 Capital das Ces (D)' na linha 112
+2025-02-04 16:13:05,791 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Manutencao de Titulos (D)' na linha 113
+2025-02-04 16:13:05,851 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Recebimento Pix 51384487000194 Gr Sartorelli Pre - Gr Sartorelli Prestadora de Servicos Ltda (C)' na linha 114
+2025-02-04 16:13:05,911 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Recebimento Pix 33879944000130 Ninho Cega - Ninho Cega (C)' na linha 115
+2025-02-04 16:13:05,972 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Recebimento Pix 32019860000163 Novo Machadinho E - Novo Machadinho E. I. S. Ltda (C)' na linha 116
+2025-02-04 16:13:06,034 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Recebimento Pix 12051659000156 Gr Constr E Empre - Gr Constr E Empreend Imobiliario (C)' na linha 117
+2025-02-04 16:13:06,094 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liq.Cobranca Simples (C)' na linha 118
+2025-02-04 16:13:06,155 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Tarifa Com R Liquidacao (D)' na linha 119
+2025-02-04 16:13:06,258 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Tarifa Com R Liquidacao (D)' na linha 120
+2025-02-04 16:13:06,317 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Tarifa Com R Liquidacao (D)' na linha 121
+2025-02-04 16:13:06,379 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liq.Cobranca Simples (C)' na linha 122
+2025-02-04 16:13:06,443 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Tarifa Com R Liquidacao (D)' na linha 123
+2025-02-04 16:13:06,503 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liq.Cobranca Simples (C)' na linha 124
+2025-02-04 16:13:06,631 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Tarifa Com R Liquidacao (D)' na linha 125
+2025-02-04 16:13:06,713 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Tarifa Com R Liquidacao (D)' na linha 126
+2025-02-04 16:13:06,776 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liq.Cobranca Simples (C)' na linha 127
+2025-02-04 16:13:06,835 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Tarifa Com R Liquidacao (D)' na linha 128
+2025-02-04 16:13:06,896 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liq.Cobranca Simples (C)' na linha 129
+2025-02-04 16:13:06,957 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Tarifa Com R Liquidacao (D)' na linha 130
+2025-02-04 16:13:07,019 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liq.Cobranca Simples (C)' na linha 131
+2025-02-04 16:13:07,083 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Tarifa Com R Liquidacao (D)' na linha 132
+2025-02-04 16:13:07,145 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Tarifa Com R Liquidacao (D)' na linha 133
+2025-02-04 16:13:07,207 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liq.Cobranca Simples (C)' na linha 134
+2025-02-04 16:13:07,268 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Tarifa Com R Liquidacao (D)' na linha 135
+2025-02-04 16:13:07,331 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liq.Cobranca Simples (C)' na linha 136
+2025-02-04 16:13:07,395 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Tarifa Com R Liquidacao (D)' na linha 137
+2025-02-04 16:13:07,461 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liq.Cobranca Simples (C)' na linha 138
+2025-02-04 16:13:07,523 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Tarifa Com R Liquidacao (D)' na linha 139
+2025-02-04 16:13:07,584 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liq.Cobranca Simples (C)' na linha 140
+2025-02-04 16:13:07,645 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Tarifa Com R Liquidacao (D)' na linha 141
+2025-02-04 16:13:07,708 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liq.Cobranca Simples (C)' na linha 142
+2025-02-04 16:13:07,774 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Tarifa Com R Liquidacao (D)' na linha 143
+2025-02-04 16:13:07,836 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Tarifa Com R Liquidacao (D)' na linha 144
+2025-02-04 16:13:07,899 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liq.Cobranca Simples (C)' na linha 145
+2025-02-04 16:13:07,960 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Tarifa Com R Liquidacao (D)' na linha 146
+2025-02-04 16:13:08,021 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liq.Cobranca Simples (C)' na linha 147
+2025-02-04 16:13:08,081 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Tarifa Com R Liquidacao (D)' na linha 148
+2025-02-04 16:13:08,145 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Recebimento Pix Sicredi 05552601000120 Bicicleta (C)' na linha 149
+2025-02-04 16:13:08,208 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Liq.Cobranca Simples (C)' na linha 150
+2025-02-04 16:13:08,269 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Tarifa Com R Liquidacao (D)' na linha 151
+2025-02-04 16:13:08,331 - WARNING - Histórico não mapeado: 'Sicredi Empresas [+/*] Tarifa Com R Liquidacao (D)' na linha 152
+2025-02-04 16:13:09,405 - INFO - Página rolada para o topo.
+2025-02-04 16:13:14,625 - INFO - Botão 'Exportar' clicado com sucesso!
