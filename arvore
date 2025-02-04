@@ -1,0 +1,54 @@
+Segue exemplo da estrutura do site, essa página é carregada após o click no botao_processar 
+
+#	Data	        Nr. Doc.	                Histórico	
+2	29/11/2024	    (deverá ser preenchido)     Sicredi Empresas [+/*] Debito Convenios 03795072000160 Sefazsp-G (D) (exemplo)
+
+Valor	    HP/Déb/Cré	                                            Ações
+201,55	    (possui um td com 3 inputs, deverá ser preenchido)      (possui 3 botões, um deles deverá ser cliclado).
+
+
+A página possui vários dados desses, eu preciso identificar o Histórico.
+    Ele está dentro de td: 
+    (<td class="w-5/12">
+        <div class="w-full flex text-center" style="min-width: 330px">
+        <input type="text" class="hist-input hist text-left mx-auto w-full px-2 form-input font-medium tracking-wide" id="field-2-hist" value="Sicredi Empresas [+/*] Debito Convenios 03795072000160 Sefazsp-G (D)" wfd-id="id4">
+        </div>
+    </td>)
+
+Eu preciso ler seu value.
+
+Eu tenho uma base de dados, com o nome desse value e os valores dos 3 inputs a serem preenchidos
+Com base nesse value, eu preencherei os 3 inputs (HP/Déb/Cré)
+
+E precisarei clicar em um dos 3 botões
+
+Preciso que isso seja feito para cada "Histórico" cadastrado na minha base de dados.
+
+
+
+    Sistema Importação	                                Novo Histórico	Hist. Padrão / Débito / Crédito	-- Funções --
+1	Sicredi Empresas [+/*] LIQ.COBRANCA SIMPLES (C)                     3/100/2	                            2 botões
+
+É uma lista, dentro de tbody, e várias tr, com dados específicos.
+Esse é o exemplo da lista, primeiro o número da linha, 1, 2, 3 em diante
+O segundo valor é o "Sistema Importação", que possui o nome do gasto.
+O terceiro é o "Novo Histórico", que não possui nada.
+O quarto é o Hist. Padrão / Débito / Crédito, que retorna um string, exemplo: 3/100/2
+O quinto são dois botões.
+
+
+Após clicar no botão visualizar:
+Eu preciso percorrer pela lista, XPATH do tbody (//*[@id="rel_dataTable"]/tbody)
+XPATH da primeira linha (//*[@id="rel_dataTable"]/tbody/tr[1])
+XPATH da segunda linha (//*[@id="rel_dataTable"]/tbody/tr[2])
+Elemento HTML do td do Sistema Importaão: 
+<td class=" text-center dt-nowrap">
+    <span class="d-none">Sicredi Empresas [+/*] LIQ.COBRANCA SIMPLES (C)</span>
+    <input class="InpTab h-8" value="Sicredi Empresas [+/*] LIQ.COBRANCA SIMPLES (C)" readonly="" type="text" wfd-id="id3">
+</td>
+Preciso armazenar esse span (Sicredi Empresas [+/*] LIQ.COBRANCA SIMPLES (C)) em uma váriavel ou arquivo excel.
+Juntamente, preciso armazenar a string de Hist. Padrão / Débito / Crédito, segue elemento HTML:
+<td class=" text-center dt-nowrap">3/100/2</td>
+E preciso manipular a string, para que se torne 3 valores diferentes, 3, 100 e 2 (exemplo)
+
+Preciso fazer isso para todas as linhas disponíveis.
