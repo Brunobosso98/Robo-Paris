@@ -177,12 +177,12 @@ def processar_historicos(driver, wait):
             # 4. Preencher os campos correspondentes
             preencher_campos(driver, wait, valor_elemento, dados)
 
-                        # Clicar no botão 'cadRelac' da linha atual
-            botao_adicionar = wait.until(EC.element_to_be_clickable(
-                ((By.XPATH, f'//*[@id="accordion_parent"]/tr[{i}]/td[last()]/div/button[contains(@class, "cadRelac")]'))))
-            # //*[@id="accordion_parent"]/tr[{i}]/td[7]/div/button[1]
-            botao_adicionar.click()
-            logger.info(f"Botão 'cadRelac' da linha {i} clicado com sucesso!")
+            # # Clicar no botão 'cadRelac' da linha atual
+            # botao_adicionar = wait.until(EC.element_to_be_clickable(
+            #     ((By.XPATH, f'//*[@id="accordion_parent"]/tr[{i}]/td[last()]/div/button[contains(@class, "cadRelac")]'))))
+            # # //*[@id="accordion_parent"]/tr[{i}]/td[7]/div/button[1]
+            # botao_adicionar.click()
+            # logger.info(f"Botão 'cadRelac' da linha {i} clicado com sucesso!")
 
         except Exception as e:
             logger.error(f"Erro na linha {i}: {str(e)}", exc_info=True)
