@@ -15,7 +15,9 @@ URL_RELACIONAMENTO = "https://portal.ssparisi.com.br/prime/app/ls/Relacionamento
 
 def inicializar_driver():
     service = Service(ChromeDriverManager().install())
-    driver = webdriver.Chrome(service=service)
+    options = webdriver.ChromeOptions()
+    options.add_argument("--headless")  # Add headless mode
+    driver = webdriver.Chrome(service=service, options=options)
     driver.maximize_window()
     return driver
 
@@ -131,4 +133,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
