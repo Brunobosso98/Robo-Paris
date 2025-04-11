@@ -10,15 +10,31 @@ import os
 import shutil
 import time
 import logging
-from datetime import datetime
+from datetime import datetime, timedelta
 from selenium.common.exceptions import TimeoutException
 
 # Configurações
 DOWNLOAD_DIR = os.path.join(os.path.expanduser("~"), "Downloads")
-DESTINO_DIR = r"C:\Users\Administrador\Desktop\Projetos\Automações\RoboParis\extratos"
+BASE_DESTINO_DIR = r"I:\Contabilidade\Banco Online"
 EXCEL_PATH = "empresas.xlsx"
 URL_LOGIN = "https://portal.ssparisi.com.br/prime/login.php"
 URL_EXTRATO = "https://portal.ssparisi.com.br/prime/app/ctrl/GestaoBankExtratoSS.php"
+
+# Dicionário de meses em português
+MESES = {
+    1: "janeiro",
+    2: "fevereiro",
+    3: "março",
+    4: "abril",
+    5: "maio",
+    6: "junho",
+    7: "julho",
+    8: "agosto",
+    9: "setembro",
+    10: "outubro",
+    11: "novembro",
+    12: "dezembro"
+}
 
 # Mapeamento de bancos e suas classes de botão
 BANCO_CLASSES = {
@@ -27,6 +43,30 @@ BANCO_CLASSES = {
     "santander": "button-32",
     "bradesco": "button-15"
 }
+
+# Função para calcular as datas do mês anterior
+def calcular_datas_mes_anterior():
+    hoje = datetime.now()
+
+    # Calcular o primeiro dia do mês atual
+    primeiro_dia_mes_atual = hoje.replace(day=1)
+
+    # Calcular o último dia do mês anterior (um dia antes do primeiro dia do mês atual)
+    ultimo_dia_mes_anterior = primeiro_dia_mes_atual - timedelta(days=1)
+
+    # Calcular o primeiro dia do mês anterior
+    primeiro_dia_mes_anterior = ultimo_dia_mes_anterior.replace(day=1)
+
+    # Formatar as datas no formato dd/mm/aaaa
+    data_inicial = primeiro_dia_mes_anterior.strftime('%d/%m/%Y')
+    data_final = ultimo_dia_mes_anterior.strftime('%d/%m/%Y')
+
+    # Obter o ano e o mês para o caminho do diretório
+    ano = ultimo_dia_mes_anterior.year
+    mes = ultimo_dia_mes_anterior.month
+    nome_mes = MESES[mes]
+
+    return data_inicial, data_final, ano, nome_mes
 
 # Configuração de logging
 def setup_logging():
@@ -85,7 +125,7 @@ def fazer_login(driver, wait, logger):
         logger.error(f"Erro ao fazer login: {str(e)}")
         raise
 
-def processar_empresa(driver, wait, empresa, data_inicial, data_final, logger):
+def processar_empresa(driver, wait, empresa, data_inicial, data_final, ano, nome_mes, logger):
     logger.info(f"Processando empresa: {empresa} - Período: {data_inicial} a {data_final}")
 
     try:
@@ -223,7 +263,7 @@ def processar_empresa(driver, wait, empresa, data_inicial, data_final, logger):
                             continue
 
                         # Mover o arquivo baixado
-                        nome_arquivo = mover_arquivo(empresa, data_inicial, banco_nome, i+1, logger)
+                        nome_arquivo = mover_arquivo(ano, nome_mes, logger)
 
                         if nome_arquivo:
                             logger.info(f"Arquivo processado e movido: {nome_arquivo}")
@@ -250,16 +290,14 @@ def processar_empresa(driver, wait, empresa, data_inicial, data_final, logger):
         logger.error(f"Erro ao processar empresa {empresa}: {str(e)}")
         return False
 
-def mover_arquivo(empresa, data_inicial, banco, num_conta, logger):
-    # Gerar nome único para o arquivo
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    nome_arquivo = f"Extrato_{empresa}_{banco}_conta{num_conta}_{data_inicial.replace('/', '-')}_{timestamp}.txt"
+def mover_arquivo(ano, nome_mes, logger):
+    # Criar estrutura de diretórios: I:\Contabilidade\Banco Online\{ano}\{mes}
+    destino_dir = os.path.join(BASE_DESTINO_DIR, str(ano), nome_mes)
 
-    # Criar pasta da empresa se não existir
-    pasta_empresa = os.path.join(DESTINO_DIR, empresa)
-    if not os.path.exists(pasta_empresa):
-        os.makedirs(pasta_empresa)
-        logger.info(f"Pasta criada para empresa: {pasta_empresa}")
+    # Criar pasta do ano/mês se não existir
+    if not os.path.exists(destino_dir):
+        os.makedirs(destino_dir)
+        logger.info(f"Pasta ano/mês criada: {destino_dir}")
 
     # Esperar o download completar
     arquivo_encontrado = None
@@ -276,11 +314,14 @@ def mover_arquivo(empresa, data_inicial, banco, num_conta, logger):
         time.sleep(1)
 
     if arquivo_encontrado:
-        caminho_destino = os.path.join(pasta_empresa, nome_arquivo)
+        # Manter o nome original do arquivo
+        nome_arquivo_original = os.path.basename(arquivo_encontrado)
+        caminho_destino = os.path.join(destino_dir, nome_arquivo_original)
+
         try:
             shutil.move(arquivo_encontrado, caminho_destino)
             logger.info(f"Arquivo movido para: {caminho_destino}")
-            return nome_arquivo
+            return nome_arquivo_original
         except Exception as e:
             logger.error(f"Erro ao mover arquivo: {str(e)}")
             return None
@@ -293,15 +334,19 @@ def main():
     logger = setup_logging()
     logger.info("=== INICIANDO ROBÔ PARIS ===")
 
-    # Verificar se o diretório de destino existe
-    if not os.path.exists(DESTINO_DIR):
-        os.makedirs(DESTINO_DIR)
-        logger.info(f"Diretório de destino criado: {DESTINO_DIR}")
+    # Verificar se o diretório base de destino existe
+    if not os.path.exists(BASE_DESTINO_DIR):
+        os.makedirs(BASE_DESTINO_DIR)
+        logger.info(f"Diretório base de destino criado: {BASE_DESTINO_DIR}")
     else:
-        logger.info(f"Diretório de destino encontrado: {DESTINO_DIR}")
+        logger.info(f"Diretório base de destino encontrado: {BASE_DESTINO_DIR}")
 
     # Mostrar diretório de download
     logger.info(f"Diretório de download configurado: {DOWNLOAD_DIR}")
+
+    # Calcular datas do mês anterior
+    data_inicial, data_final, ano, nome_mes = calcular_datas_mes_anterior()
+    logger.info(f"Período calculado: {data_inicial} a {data_final} (Ano: {ano}, Mês: {nome_mes})")
 
     driver = None
     try:
@@ -320,7 +365,7 @@ def main():
         # Ler planilha
         try:
             logger.info(f"Lendo planilha de empresas: {EXCEL_PATH}")
-            df = pd.read_excel(EXCEL_PATH, parse_dates=['dataInicial', 'dataFinal'])
+            df = pd.read_excel(EXCEL_PATH)
             logger.info(f"Total de empresas na planilha: {len(df)}")
         except Exception as e:
             logger.error(f"Erro ao ler planilha: {str(e)}")
@@ -330,10 +375,9 @@ def main():
         empresas_processadas = 0
         empresas_com_erro = 0
 
+        # Usamos as datas calculadas automaticamente para todas as empresas
         for index, row in df.iterrows():
             empresa = row['Empresa']
-            data_inicial = row['dataInicial'].strftime('%d/%m/%Y')
-            data_final = row['dataFinal'].strftime('%d/%m/%Y')
 
             logger.info(f"\n{'='*50}")
             logger.info(f"EMPRESA {index+1}/{len(df)}: {empresa}")
@@ -347,7 +391,7 @@ def main():
             while tentativa <= max_tentativas and not sucesso:
                 try:
                     logger.info(f"Tentativa {tentativa}/{max_tentativas} para empresa {empresa}")
-                    resultado = processar_empresa(driver, wait, empresa, data_inicial, data_final, logger)
+                    resultado = processar_empresa(driver, wait, empresa, data_inicial, data_final, ano, nome_mes, logger)
 
                     if resultado:
                         logger.info(f"Empresa {empresa} processada com sucesso na tentativa {tentativa}")

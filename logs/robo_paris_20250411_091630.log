@@ -1,0 +1,52 @@
+2025-04-11 09:16:30,211 - INFO - === INICIANDO ROBÔ PARIS ===
+2025-04-11 09:16:30,212 - INFO - Diretório base de destino encontrado: I:\Contabilidade\Banco Online
+2025-04-11 09:16:30,213 - INFO - Diretório de download configurado: C:\Users\Administrador\Downloads
+2025-04-11 09:16:30,213 - INFO - Período calculado: 01/03/2025 a 31/03/2025 (Ano: 2025, Mês: março)
+2025-04-11 09:16:30,214 - INFO - Inicializando o driver do Chrome
+2025-04-11 09:16:30,214 - INFO - ====== WebDriver manager ======
+2025-04-11 09:16:31,897 - INFO - Get LATEST chromedriver version for google-chrome
+2025-04-11 09:16:32,175 - INFO - Get LATEST chromedriver version for google-chrome
+2025-04-11 09:16:32,249 - INFO - Get LATEST chromedriver version for google-chrome
+2025-04-11 09:16:32,387 - INFO - WebDriver version 135.0.7049.84 selected
+2025-04-11 09:16:32,390 - INFO - Modern chrome version https://storage.googleapis.com/chrome-for-testing-public/135.0.7049.84/win32/chromedriver-win32.zip
+2025-04-11 09:16:32,390 - INFO - About to download new driver from https://storage.googleapis.com/chrome-for-testing-public/135.0.7049.84/win32/chromedriver-win32.zip
+2025-04-11 09:16:32,541 - INFO - Driver downloading response is 200
+2025-04-11 09:16:32,875 - INFO - Get LATEST chromedriver version for google-chrome
+2025-04-11 09:16:33,071 - INFO - Driver has been saved in cache [C:\Users\Administrador\.wdm\drivers\chromedriver\win64\135.0.7049.84]
+2025-04-11 09:16:34,995 - INFO - Driver inicializado com sucesso
+2025-04-11 09:16:34,995 - INFO - Iniciando processo de login
+2025-04-11 09:16:37,103 - INFO - Acessando URL de login: https://portal.ssparisi.com.br/prime/login.php
+2025-04-11 09:16:37,243 - INFO - Usuário preenchido
+2025-04-11 09:16:37,349 - INFO - Senha preenchida
+2025-04-11 09:16:37,508 - INFO - Login realizado com sucesso
+2025-04-11 09:16:37,508 - INFO - Lendo planilha de empresas: empresas.xlsx
+2025-04-11 09:16:39,328 - INFO - Total de empresas na planilha: 2
+2025-04-11 09:16:39,332 - INFO - 
+==================================================
+2025-04-11 09:16:39,332 - INFO - EMPRESA 1/2: LACERDA
+2025-04-11 09:16:39,332 - INFO - ==================================================
+2025-04-11 09:16:39,333 - INFO - Tentativa 1/3 para empresa LACERDA
+2025-04-11 09:16:39,333 - INFO - Processando empresa: LACERDA - Período: 01/03/2025 a 31/03/2025
+2025-04-11 09:16:45,372 - INFO - Acessando URL de extrato: https://portal.ssparisi.com.br/prime/app/ctrl/GestaoBankExtratoSS.php
+2025-04-11 09:16:45,521 - INFO - Empresa 'LACERDA' selecionada
+2025-04-11 09:16:48,620 - INFO - Botão de bancos clicado
+2025-04-11 09:16:50,672 - INFO - Encontrado(s) 1 conta(s) do banco sicredi
+2025-04-11 09:16:50,680 - INFO - Processando conta 1 do banco sicredi (ID: account-7889)
+2025-04-11 09:16:59,855 - INFO - Data inicial preenchida: 01/03/2025
+2025-04-11 09:16:59,956 - INFO - Data final preenchida: 31/03/2025
+2025-04-11 09:17:09,941 - INFO - Botão processar clicado, aguardando processamento...
+2025-04-11 09:17:20,298 - INFO - Botão exportar clicado
+2025-04-11 09:17:20,331 - INFO - Download iniciado para LACERDA - sicredi - conta 1
+2025-04-11 09:17:25,332 - INFO - Procurando arquivo baixado (tentativa 1/15)
+2025-04-11 09:17:26,334 - INFO - Procurando arquivo baixado (tentativa 2/15)
+2025-04-11 09:17:27,336 - INFO - Procurando arquivo baixado (tentativa 3/15)
+2025-04-11 09:17:28,337 - INFO - Procurando arquivo baixado (tentativa 4/15)
+2025-04-11 09:17:29,338 - INFO - Procurando arquivo baixado (tentativa 5/15)
+2025-04-11 09:17:30,338 - INFO - Procurando arquivo baixado (tentativa 6/15)
+2025-04-11 09:17:31,340 - INFO - Procurando arquivo baixado (tentativa 7/15)
+2025-04-11 09:17:32,341 - INFO - Procurando arquivo baixado (tentativa 8/15)
+2025-04-11 09:17:33,343 - INFO - Procurando arquivo baixado (tentativa 9/15)
+2025-04-11 09:17:33,825 - INFO - Fechando o navegador
+2025-04-11 09:17:33,834 - WARNING - Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'ConnectionResetError(10054, 'Foi forçado o cancelamento de uma conexão existente pelo host remoto', None, 10054, None)': /session/ad809041cf7277f567e6daa36e4de3d4
+2025-04-11 09:17:37,906 - WARNING - Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x00000199568CD9D0>: Failed to establish a new connection: [WinError 10061] Nenhuma conexão pôde ser feita porque a máquina de destino as recusou ativamente')': /session/ad809041cf7277f567e6daa36e4de3d4
+2025-04-11 09:17:41,971 - WARNING - Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x00000199568EA350>: Failed to establish a new connection: [WinError 10061] Nenhuma conexão pôde ser feita porque a máquina de destino as recusou ativamente')': /session/ad809041cf7277f567e6daa36e4de3d4
