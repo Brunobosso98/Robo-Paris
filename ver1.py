@@ -206,7 +206,33 @@ def processar_empresa(driver, wait, empresa, data_inicial, data_final, ano, nome
                     botao_processar = wait.until(EC.element_to_be_clickable((By.ID, 'seeTransactions')))
                     botao_processar.click()
                     logger.info("Botão processar clicado, aguardando processamento...")
-                    time.sleep(7)
+                    time.sleep(3)  # Reduzido para verificar o modal mais rapidamente
+
+                    # Verificar se aparece o modal "Sem lançamentos!"
+                    try:
+                        # Tentar encontrar o modal com timeout reduzido para não atrasar muito o processo
+                        modal_sem_lancamentos = WebDriverWait(driver, 5).until(
+                            EC.presence_of_element_located((By.XPATH, "//h2[contains(text(), 'Sem lançamentos')]"))
+                        )
+
+                        if modal_sem_lancamentos:
+                            erro_msg = "Sem lançamentos disponíveis para esta conta no período selecionado"
+                            logger.warning(erro_msg)
+
+                            # Verificar se este erro já foi registrado para evitar duplicação
+                            chave_erro = f"{empresa}_{banco_nome}_sem_lancamentos"
+                            if chave_erro not in erros_registrados:
+                                registrar_erro_no_arquivo(empresa, banco_nome, erro_msg, ano, nome_mes, logger)
+                                erros_registrados[chave_erro] = True
+
+                            logger.info("Pulando para o próximo banco ou empresa...")
+                            continue
+                    except TimeoutException:
+                        # Não encontrou o modal, o que é bom - significa que há lançamentos
+                        logger.info("Processando lançamentos...")
+
+                    # Aguardar o processamento completo
+                    time.sleep(4)
 
                     # Verificar se todos os lançamentos foram feitos
                     try:
