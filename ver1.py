@@ -126,8 +126,12 @@ def fazer_login(driver, wait, logger):
         logger.error(f"Erro ao fazer login: {str(e)}")
         raise
 
-def processar_empresa(driver, wait, empresa, data_inicial, data_final, ano, nome_mes, logger):
+def processar_empresa(driver, wait, empresa, data_inicial, data_final, ano, nome_mes, logger, erros_registrados=None):
     logger.info(f"Processando empresa: {empresa} - Período: {data_inicial} a {data_final}")
+
+    # Inicializar o dicionário de erros registrados se não for fornecido
+    if erros_registrados is None:
+        erros_registrados = {}
 
     try:
         # Primeiro, identificar todos os bancos disponíveis para esta empresa
@@ -224,8 +228,11 @@ def processar_empresa(driver, wait, empresa, data_inicial, data_final, ano, nome
                                 erro_msg = f"Nem todos os lançamentos foram feitos: {lancamentos_feitos}/{lancamentos_total}"
                                 logger.warning(erro_msg)
 
-                                # Registrar o erro no arquivo de log
-                                registrar_erro_no_arquivo(empresa, banco_nome, erro_msg, ano, nome_mes, logger)
+                                # Verificar se este erro já foi registrado para evitar duplicação
+                                chave_erro = f"{empresa}_{banco_nome}_lancamentos"
+                                if chave_erro not in erros_registrados:
+                                    registrar_erro_no_arquivo(empresa, banco_nome, erro_msg, ano, nome_mes, logger)
+                                    erros_registrados[chave_erro] = True
 
                                 logger.info("Pulando para o próximo banco ou empresa...")
                                 continue
@@ -442,6 +449,9 @@ def main():
     logger = setup_logging()
     logger.info("=== INICIANDO ROBÔ PARIS ===")
 
+    # Dicionário para armazenar erros já registrados (evitar duplicação)
+    erros_registrados = {}
+
     # Verificar se o diretório base de destino existe
     if not os.path.exists(BASE_DESTINO_DIR):
         os.makedirs(BASE_DESTINO_DIR)
@@ -492,14 +502,15 @@ def main():
             logger.info(f"{'='*50}")
 
             # Tentar processar a empresa até 3 vezes em caso de falha
-            max_tentativas = 3
+            max_tentativas = 2
             tentativa = 1
             sucesso = False
 
             while tentativa <= max_tentativas and not sucesso:
                 try:
                     logger.info(f"Tentativa {tentativa}/{max_tentativas} para empresa {empresa}")
-                    resultado = processar_empresa(driver, wait, empresa, data_inicial, data_final, ano, nome_mes, logger)
+                    # Passar o dicionário de erros registrados para a função processar_empresa
+                    resultado = processar_empresa(driver, wait, empresa, data_inicial, data_final, ano, nome_mes, logger, erros_registrados)
 
                     if resultado:
                         logger.info(f"Empresa {empresa} processada com sucesso na tentativa {tentativa}")
@@ -514,7 +525,12 @@ def main():
                         if tentativa > max_tentativas:
                             erro_msg = f"Falha ao processar empresa {empresa} após {max_tentativas} tentativas"
                             logger.error(erro_msg)
-                            registrar_erro_no_arquivo(empresa, "Todos", erro_msg, ano, nome_mes, logger)
+
+                            # Verificar se este erro já foi registrado para evitar duplicação
+                            chave_erro = f"{empresa}_todas_tentativas"
+                            if chave_erro not in erros_registrados:
+                                registrar_erro_no_arquivo(empresa, "Todos", erro_msg, ano, nome_mes, logger)
+                                erros_registrados[chave_erro] = True
                         else:
                             logger.info(f"Aguardando 5 segundos antes da próxima tentativa {tentativa}/{max_tentativas}...")
                             time.sleep(5)
@@ -527,7 +543,12 @@ def main():
                     # Se foi a última tentativa, registrar os erros no arquivo de log
                     if tentativa > max_tentativas:
                         logger.error(f"Todas as tentativas falharam para empresa {empresa}")
-                        registrar_erro_no_arquivo(empresa, "Todos", erro_msg, ano, nome_mes, logger)
+
+                        # Verificar se este erro já foi registrado para evitar duplicação
+                        chave_erro = f"{empresa}_todas_tentativas"
+                        if chave_erro not in erros_registrados:
+                            registrar_erro_no_arquivo(empresa, "Todos", erro_msg, ano, nome_mes, logger)
+                            erros_registrados[chave_erro] = True
                     else:
                         logger.info(f"Aguardando 5 segundos antes da próxima tentativa {tentativa}/{max_tentativas}...")
                         time.sleep(5)
