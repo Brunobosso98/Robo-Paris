@@ -1,0 +1,145 @@
+2025-04-11 09:23:28,772 - INFO - === INICIANDO ROBÔ PARIS ===
+2025-04-11 09:23:28,773 - INFO - Diretório base de destino encontrado: I:\Contabilidade\Banco Online
+2025-04-11 09:23:28,773 - INFO - Diretório de download configurado: C:\Users\Administrador\Downloads
+2025-04-11 09:23:28,774 - INFO - Período calculado: 01/03/2025 a 31/03/2025 (Ano: 2025, Mês: março)
+2025-04-11 09:23:28,774 - INFO - Inicializando o driver do Chrome
+2025-04-11 09:23:28,775 - INFO - ====== WebDriver manager ======
+2025-04-11 09:23:29,750 - INFO - Get LATEST chromedriver version for google-chrome
+2025-04-11 09:23:29,832 - INFO - Get LATEST chromedriver version for google-chrome
+2025-04-11 09:23:29,881 - INFO - Driver [C:\Users\Administrador\.wdm\drivers\chromedriver\win64\135.0.7049.84\chromedriver-win32/chromedriver.exe] found in cache
+2025-04-11 09:23:31,059 - INFO - Driver inicializado com sucesso
+2025-04-11 09:23:31,060 - INFO - Iniciando processo de login
+2025-04-11 09:23:33,066 - INFO - Acessando URL de login: https://portal.ssparisi.com.br/prime/login.php
+2025-04-11 09:23:33,216 - INFO - Usuário preenchido
+2025-04-11 09:23:33,328 - INFO - Senha preenchida
+2025-04-11 09:23:33,436 - INFO - Login realizado com sucesso
+2025-04-11 09:23:33,436 - INFO - Lendo planilha de empresas: empresas.xlsx
+2025-04-11 09:23:33,689 - INFO - Total de empresas na planilha: 2
+2025-04-11 09:23:33,690 - INFO - 
+==================================================
+2025-04-11 09:23:33,690 - INFO - EMPRESA 1/2: LACERDA
+2025-04-11 09:23:33,690 - INFO - ==================================================
+2025-04-11 09:23:33,690 - INFO - Tentativa 1/3 para empresa LACERDA
+2025-04-11 09:23:33,692 - INFO - Processando empresa: LACERDA - Período: 01/03/2025 a 31/03/2025
+2025-04-11 09:23:41,243 - INFO - Acessando URL de extrato: https://portal.ssparisi.com.br/prime/app/ctrl/GestaoBankExtratoSS.php
+2025-04-11 09:23:41,400 - INFO - Empresa 'LACERDA' selecionada
+2025-04-11 09:23:44,499 - INFO - Botão de bancos clicado
+2025-04-11 09:23:46,550 - INFO - Encontrado(s) 1 conta(s) do banco sicredi
+2025-04-11 09:23:46,556 - INFO - Processando conta 1 do banco sicredi (ID: account-7889)
+2025-04-11 09:23:55,716 - INFO - Data inicial preenchida: 01/03/2025
+2025-04-11 09:23:55,816 - INFO - Data final preenchida: 31/03/2025
+2025-04-11 09:24:05,045 - INFO - Botão processar clicado, aguardando processamento...
+2025-04-11 09:24:15,546 - INFO - Botão exportar clicado
+2025-04-11 09:24:15,587 - INFO - Download iniciado para LACERDA - sicredi - conta 1
+2025-04-11 09:24:20,589 - INFO - Procurando arquivo baixado (tentativa 1/15)
+2025-04-11 09:24:21,591 - INFO - Procurando arquivo baixado (tentativa 2/15)
+2025-04-11 09:24:22,592 - INFO - Procurando arquivo baixado (tentativa 3/15)
+2025-04-11 09:24:23,593 - INFO - Procurando arquivo baixado (tentativa 4/15)
+2025-04-11 09:24:24,594 - INFO - Procurando arquivo baixado (tentativa 5/15)
+2025-04-11 09:24:25,595 - INFO - Procurando arquivo baixado (tentativa 6/15)
+2025-04-11 09:24:26,597 - INFO - Procurando arquivo baixado (tentativa 7/15)
+2025-04-11 09:24:27,598 - INFO - Procurando arquivo baixado (tentativa 8/15)
+2025-04-11 09:24:28,600 - INFO - Procurando arquivo baixado (tentativa 9/15)
+2025-04-11 09:24:29,601 - INFO - Procurando arquivo baixado (tentativa 10/15)
+2025-04-11 09:24:30,602 - INFO - Procurando arquivo baixado (tentativa 11/15)
+2025-04-11 09:24:31,603 - INFO - Procurando arquivo baixado (tentativa 12/15)
+2025-04-11 09:24:32,604 - INFO - Procurando arquivo baixado (tentativa 13/15)
+2025-04-11 09:24:33,605 - INFO - Procurando arquivo baixado (tentativa 14/15)
+2025-04-11 09:24:34,607 - INFO - Procurando arquivo baixado (tentativa 15/15)
+2025-04-11 09:24:35,608 - WARNING - Arquivo não encontrado para mover
+2025-04-11 09:24:35,608 - WARNING - Não foi possível mover o arquivo para LACERDA - sicredi - conta 1
+2025-04-11 09:24:36,066 - INFO - Erro registrado no arquivo de log: I:\Contabilidade\Banco Online\2025\março\erros_download_20250411.txt
+2025-04-11 09:24:36,081 - INFO - Banco itau (classe button-23) não encontrado para esta empresa
+2025-04-11 09:24:36,093 - INFO - Banco santander (classe button-32) não encontrado para esta empresa
+2025-04-11 09:24:36,105 - INFO - Banco bradesco (classe button-15) não encontrado para esta empresa
+2025-04-11 09:24:36,105 - WARNING - Nenhuma conta bancária foi processada para a empresa LACERDA
+2025-04-11 09:24:36,109 - INFO - Erro registrado no arquivo de log: I:\Contabilidade\Banco Online\2025\março\erros_download_20250411.txt
+2025-04-11 09:24:36,109 - WARNING - Falha ao processar empresa LACERDA na tentativa 1
+2025-04-11 09:24:36,109 - INFO - Aguardando 5 segundos antes da próxima tentativa...
+2025-04-11 09:24:41,110 - INFO - Tentativa 2/3 para empresa LACERDA
+2025-04-11 09:24:41,110 - INFO - Processando empresa: LACERDA - Período: 01/03/2025 a 31/03/2025
+2025-04-11 09:24:42,570 - INFO - Acessando URL de extrato: https://portal.ssparisi.com.br/prime/app/ctrl/GestaoBankExtratoSS.php
+2025-04-11 09:24:42,695 - INFO - Empresa 'LACERDA' selecionada
+2025-04-11 09:24:45,777 - INFO - Botão de bancos clicado
+2025-04-11 09:24:47,817 - INFO - Encontrado(s) 1 conta(s) do banco sicredi
+2025-04-11 09:24:47,824 - INFO - Processando conta 1 do banco sicredi (ID: account-7889)
+2025-04-11 09:24:56,990 - INFO - Data inicial preenchida: 01/03/2025
+2025-04-11 09:24:57,089 - INFO - Data final preenchida: 31/03/2025
+2025-04-11 09:25:05,747 - INFO - Botão processar clicado, aguardando processamento...
+2025-04-11 09:25:15,735 - INFO - Botão exportar clicado
+2025-04-11 09:25:15,763 - INFO - Download iniciado para LACERDA - sicredi - conta 1
+2025-04-11 09:25:20,764 - INFO - Procurando arquivo baixado (tentativa 1/15)
+2025-04-11 09:25:21,765 - INFO - Procurando arquivo baixado (tentativa 2/15)
+2025-04-11 09:25:22,766 - INFO - Procurando arquivo baixado (tentativa 3/15)
+2025-04-11 09:25:23,768 - INFO - Procurando arquivo baixado (tentativa 4/15)
+2025-04-11 09:25:24,769 - INFO - Procurando arquivo baixado (tentativa 5/15)
+2025-04-11 09:25:25,770 - INFO - Procurando arquivo baixado (tentativa 6/15)
+2025-04-11 09:25:26,771 - INFO - Procurando arquivo baixado (tentativa 7/15)
+2025-04-11 09:25:27,772 - INFO - Procurando arquivo baixado (tentativa 8/15)
+2025-04-11 09:25:28,773 - INFO - Procurando arquivo baixado (tentativa 9/15)
+2025-04-11 09:25:29,774 - INFO - Procurando arquivo baixado (tentativa 10/15)
+2025-04-11 09:25:30,776 - INFO - Procurando arquivo baixado (tentativa 11/15)
+2025-04-11 09:25:31,777 - INFO - Procurando arquivo baixado (tentativa 12/15)
+2025-04-11 09:25:32,778 - INFO - Procurando arquivo baixado (tentativa 13/15)
+2025-04-11 09:25:33,780 - INFO - Procurando arquivo baixado (tentativa 14/15)
+2025-04-11 09:25:34,782 - INFO - Procurando arquivo baixado (tentativa 15/15)
+2025-04-11 09:25:35,783 - WARNING - Arquivo não encontrado para mover
+2025-04-11 09:25:35,783 - WARNING - Não foi possível mover o arquivo para LACERDA - sicredi - conta 1
+2025-04-11 09:25:35,787 - INFO - Erro registrado no arquivo de log: I:\Contabilidade\Banco Online\2025\março\erros_download_20250411.txt
+2025-04-11 09:25:35,799 - INFO - Banco itau (classe button-23) não encontrado para esta empresa
+2025-04-11 09:25:35,808 - INFO - Banco santander (classe button-32) não encontrado para esta empresa
+2025-04-11 09:25:35,817 - INFO - Banco bradesco (classe button-15) não encontrado para esta empresa
+2025-04-11 09:25:35,817 - WARNING - Nenhuma conta bancária foi processada para a empresa LACERDA
+2025-04-11 09:25:35,821 - INFO - Erro registrado no arquivo de log: I:\Contabilidade\Banco Online\2025\março\erros_download_20250411.txt
+2025-04-11 09:25:35,822 - WARNING - Falha ao processar empresa LACERDA na tentativa 2
+2025-04-11 09:25:35,822 - INFO - Aguardando 5 segundos antes da próxima tentativa...
+2025-04-11 09:25:40,823 - INFO - Tentativa 3/3 para empresa LACERDA
+2025-04-11 09:25:40,823 - INFO - Processando empresa: LACERDA - Período: 01/03/2025 a 31/03/2025
+2025-04-11 09:25:42,255 - INFO - Acessando URL de extrato: https://portal.ssparisi.com.br/prime/app/ctrl/GestaoBankExtratoSS.php
+2025-04-11 09:25:42,379 - INFO - Empresa 'LACERDA' selecionada
+2025-04-11 09:25:45,489 - INFO - Botão de bancos clicado
+2025-04-11 09:25:47,528 - INFO - Encontrado(s) 1 conta(s) do banco sicredi
+2025-04-11 09:25:47,534 - INFO - Processando conta 1 do banco sicredi (ID: account-7889)
+2025-04-11 09:25:56,681 - INFO - Data inicial preenchida: 01/03/2025
+2025-04-11 09:25:56,777 - INFO - Data final preenchida: 31/03/2025
+2025-04-11 09:26:04,625 - INFO - Botão processar clicado, aguardando processamento...
+2025-04-11 09:26:14,869 - INFO - Botão exportar clicado
+2025-04-11 09:26:14,899 - INFO - Download iniciado para LACERDA - sicredi - conta 1
+2025-04-11 09:26:19,901 - INFO - Procurando arquivo baixado (tentativa 1/15)
+2025-04-11 09:26:20,903 - INFO - Procurando arquivo baixado (tentativa 2/15)
+2025-04-11 09:26:21,905 - INFO - Procurando arquivo baixado (tentativa 3/15)
+2025-04-11 09:26:22,907 - INFO - Procurando arquivo baixado (tentativa 4/15)
+2025-04-11 09:26:23,907 - INFO - Procurando arquivo baixado (tentativa 5/15)
+2025-04-11 09:26:24,909 - INFO - Procurando arquivo baixado (tentativa 6/15)
+2025-04-11 09:26:25,910 - INFO - Procurando arquivo baixado (tentativa 7/15)
+2025-04-11 09:26:26,911 - INFO - Procurando arquivo baixado (tentativa 8/15)
+2025-04-11 09:26:27,912 - INFO - Procurando arquivo baixado (tentativa 9/15)
+2025-04-11 09:26:28,914 - INFO - Procurando arquivo baixado (tentativa 10/15)
+2025-04-11 09:26:29,915 - INFO - Procurando arquivo baixado (tentativa 11/15)
+2025-04-11 09:26:30,916 - INFO - Procurando arquivo baixado (tentativa 12/15)
+2025-04-11 09:26:31,917 - INFO - Procurando arquivo baixado (tentativa 13/15)
+2025-04-11 09:26:32,918 - INFO - Procurando arquivo baixado (tentativa 14/15)
+2025-04-11 09:26:33,919 - INFO - Procurando arquivo baixado (tentativa 15/15)
+2025-04-11 09:26:34,920 - WARNING - Arquivo não encontrado para mover
+2025-04-11 09:26:34,920 - WARNING - Não foi possível mover o arquivo para LACERDA - sicredi - conta 1
+2025-04-11 09:26:34,924 - INFO - Erro registrado no arquivo de log: I:\Contabilidade\Banco Online\2025\março\erros_download_20250411.txt
+2025-04-11 09:26:34,934 - INFO - Banco itau (classe button-23) não encontrado para esta empresa
+2025-04-11 09:26:34,943 - INFO - Banco santander (classe button-32) não encontrado para esta empresa
+2025-04-11 09:26:34,951 - INFO - Banco bradesco (classe button-15) não encontrado para esta empresa
+2025-04-11 09:26:34,951 - WARNING - Nenhuma conta bancária foi processada para a empresa LACERDA
+2025-04-11 09:26:34,956 - INFO - Erro registrado no arquivo de log: I:\Contabilidade\Banco Online\2025\março\erros_download_20250411.txt
+2025-04-11 09:26:34,957 - WARNING - Falha ao processar empresa LACERDA na tentativa 3
+2025-04-11 09:26:34,957 - ERROR - Todas as 3 tentativas falharam para empresa LACERDA
+2025-04-11 09:26:35,009 - INFO - Erro registrado no arquivo de log: I:\Contabilidade\Banco Online\2025\março\erros_download_20250411.txt
+2025-04-11 09:26:35,010 - INFO - 
+==================================================
+2025-04-11 09:26:35,010 - INFO - EMPRESA 2/2: NUTRI
+2025-04-11 09:26:35,011 - INFO - ==================================================
+2025-04-11 09:26:35,011 - INFO - Tentativa 1/3 para empresa NUTRI
+2025-04-11 09:26:35,011 - INFO - Processando empresa: NUTRI - Período: 01/03/2025 a 31/03/2025
+2025-04-11 09:26:36,630 - INFO - Acessando URL de extrato: https://portal.ssparisi.com.br/prime/app/ctrl/GestaoBankExtratoSS.php
+2025-04-11 09:26:36,755 - INFO - Empresa 'NUTRI' selecionada
+2025-04-11 09:26:37,445 - INFO - Fechando o navegador
+2025-04-11 09:26:37,448 - WARNING - Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'ConnectionResetError(10054, 'Foi forçado o cancelamento de uma conexão existente pelo host remoto', None, 10054, None)': /session/14616d81ef65cd37d6241d5ea8f97a7d
+2025-04-11 09:26:41,538 - WARNING - Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x00000231975D9250>: Failed to establish a new connection: [WinError 10061] Nenhuma conexão pôde ser feita porque a máquina de destino as recusou ativamente')': /session/14616d81ef65cd37d6241d5ea8f97a7d
+2025-04-11 09:26:45,609 - WARNING - Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000002319787D6D0>: Failed to establish a new connection: [WinError 10061] Nenhuma conexão pôde ser feita porque a máquina de destino as recusou ativamente')': /session/14616d81ef65cd37d6241d5ea8f97a7d

@@ -252,12 +252,15 @@ def processar_empresa(driver, wait, empresa, data_inicial, data_final, ano, nome
                             logger.info(f"Download iniciado para {empresa} - {banco_nome} - conta {i+1}")
                             time.sleep(5)  # Aguardar o download iniciar
                         except TimeoutException:
-                            logger.warning(f"Botão de download não encontrado para {empresa} - {banco_nome} - conta {i+1}")
+                            erro_msg = f"Botão de download não encontrado para {empresa} - {banco_nome} - conta {i+1}"
+                            logger.warning(erro_msg)
+
                             # Verificar se há mensagem de 'sem dados'
                             try:
                                 msg_sem_dados = driver.find_element(By.XPATH, "//div[contains(text(), 'Nenhum registro encontrado')]")
                                 if msg_sem_dados:
-                                    logger.info("Nenhum registro encontrado para esta conta no período selecionado")
+                                    sem_dados_msg = "Nenhum registro encontrado para esta conta no período selecionado"
+                                    logger.info(sem_dados_msg)
                             except:
                                 pass
                             continue
@@ -269,26 +272,68 @@ def processar_empresa(driver, wait, empresa, data_inicial, data_final, ano, nome
                             logger.info(f"Arquivo processado e movido: {nome_arquivo}")
                             contas_processadas.append(f"{banco_nome}_{i+1}")
                         else:
-                            logger.warning(f"Não foi possível mover o arquivo para {empresa} - {banco_nome} - conta {i+1}")
+                            erro_msg = f"Não foi possível mover o arquivo para {empresa} - {banco_nome} - conta {i+1}"
+                            logger.warning(erro_msg)
                     except Exception as e:
-                        logger.error(f"Erro ao processar conta {i+1} do banco {banco_nome}: {str(e)}")
+                        erro_msg = f"Erro ao processar conta {i+1} do banco {banco_nome}: {str(e)}"
+                        logger.error(erro_msg)
                         continue
             except Exception as e:
-                logger.error(f"Erro ao verificar banco {banco_nome}: {str(e)}")
+                erro_msg = f"Erro ao verificar banco {banco_nome}: {str(e)}"
+                logger.error(erro_msg)
                 continue
 
         if not contas_processadas:
-            logger.warning(f"Nenhuma conta bancária foi processada para a empresa {empresa}")
+            erro_msg = f"Nenhuma conta bancária foi processada para a empresa {empresa}"
+            logger.warning(erro_msg)
             return False
 
         logger.info(f"Processamento concluído para empresa {empresa}. Contas processadas: {', '.join(contas_processadas)}")
         return True
     except TimeoutException as e:
-        logger.error(f"Timeout ao processar empresa {empresa}: {str(e)}")
+        erro_msg = f"Timeout ao processar empresa {empresa}: {str(e)}"
+        logger.error(erro_msg)
         return False
     except Exception as e:
-        logger.error(f"Erro ao processar empresa {empresa}: {str(e)}")
+        erro_msg = f"Erro ao processar empresa {empresa}: {str(e)}"
+        logger.error(erro_msg)
         return False
+
+# Função para registrar erros no arquivo de log
+def registrar_erro_no_arquivo(empresa, banco, motivo, ano, nome_mes, logger):
+    # Criar estrutura de diretórios: I:\Contabilidade\Banco Online\{ano}\{mes}
+    destino_dir = os.path.join(BASE_DESTINO_DIR, str(ano), nome_mes)
+
+    # Criar pasta do ano/mês se não existir
+    if not os.path.exists(destino_dir):
+        os.makedirs(destino_dir)
+        logger.info(f"Pasta ano/mês criada: {destino_dir}")
+
+    # Nome do arquivo de log de erros
+    log_file = os.path.join(destino_dir, f"erros_download_{datetime.now().strftime('%Y%m%d')}.txt")
+
+    # Verificar se o arquivo já existe
+    arquivo_existe = os.path.exists(log_file)
+
+    # Registrar o erro no arquivo
+    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    erro_msg = f"[{timestamp}] Empresa: {empresa} | Banco: {banco} | Erro: {motivo}\n"
+
+    try:
+        # Abrir o arquivo em modo append (ou criar se não existir)
+        with open(log_file, 'a', encoding='utf-8') as f:
+            # Se o arquivo não existia, adicionar um cabeçalho
+            if not arquivo_existe:
+                data_atual = datetime.now().strftime("%d/%m/%Y")
+                cabecalho = f"=== REGISTRO DE ERROS DE DOWNLOAD - {data_atual} ===\n"
+                cabecalho += f"Diretório de destino: {destino_dir}\n"
+                cabecalho += "=" * 50 + "\n\n"
+                f.write(cabecalho)
+
+            f.write(erro_msg)
+        logger.info(f"Erro registrado no arquivo de log: {log_file}")
+    except Exception as e:
+        logger.error(f"Erro ao registrar no arquivo de log: {str(e)}")
 
 def mover_arquivo(ano, nome_mes, logger):
     # Criar estrutura de diretórios: I:\Contabilidade\Banco Online\{ano}\{mes}
@@ -399,19 +444,35 @@ def main():
                         sucesso = True
                     else:
                         logger.warning(f"Falha ao processar empresa {empresa} na tentativa {tentativa}")
+                        # Incrementar o contador de tentativas
                         tentativa += 1
-                        if tentativa <= max_tentativas:
-                            logger.info(f"Aguardando 5 segundos antes da próxima tentativa...")
+
+                        # Se foi a última tentativa, registrar os erros no arquivo de log
+                        if tentativa > max_tentativas:
+                            erro_msg = f"Falha ao processar empresa {empresa} após {max_tentativas} tentativas"
+                            logger.error(erro_msg)
+                            registrar_erro_no_arquivo(empresa, "Todos", erro_msg, ano, nome_mes, logger)
+                        else:
+                            logger.info(f"Aguardando 5 segundos antes da próxima tentativa {tentativa}/{max_tentativas}...")
                             time.sleep(5)
                 except Exception as e:
-                    logger.error(f"Erro não tratado ao processar {empresa} na tentativa {tentativa}: {str(e)}")
+                    erro_msg = f"Erro não tratado ao processar {empresa} na tentativa {tentativa}: {str(e)}"
+                    logger.error(erro_msg)
+                    # Incrementar o contador de tentativas
                     tentativa += 1
-                    if tentativa <= max_tentativas:
-                        logger.info(f"Aguardando 5 segundos antes da próxima tentativa...")
+
+                    # Se foi a última tentativa, registrar os erros no arquivo de log
+                    if tentativa > max_tentativas:
+                        logger.error(f"Todas as tentativas falharam para empresa {empresa}")
+                        registrar_erro_no_arquivo(empresa, "Todos", erro_msg, ano, nome_mes, logger)
+                    else:
+                        logger.info(f"Aguardando 5 segundos antes da próxima tentativa {tentativa}/{max_tentativas}...")
                         time.sleep(5)
 
             if not sucesso:
-                logger.error(f"Todas as {max_tentativas} tentativas falharam para empresa {empresa}")
+                erro_msg = f"Todas as {max_tentativas} tentativas falharam para empresa {empresa}"
+                logger.error(erro_msg)
+                # Não precisamos registrar novamente aqui, já foi registrado na última tentativa
                 empresas_com_erro += 1
 
         # Resumo final
@@ -422,10 +483,17 @@ def main():
         logger.info("=== FIM DA EXECUÇÃO ===\n")
 
     except Exception as e:
+        erro_msg = f"Erro crítico na execução: {str(e)}"
         if logger:
-            logger.error(f"Erro crítico na execução: {str(e)}")
+            logger.error(erro_msg)
+            try:
+                # Tentar registrar o erro no arquivo de log
+                data_inicial, data_final, ano, nome_mes = calcular_datas_mes_anterior()
+                registrar_erro_no_arquivo("Sistema", "Todos", erro_msg, ano, nome_mes, logger)
+            except Exception as log_error:
+                logger.error(f"Não foi possível registrar o erro no arquivo: {str(log_error)}")
         else:
-            print(f"Erro crítico na execução: {str(e)}")
+            print(erro_msg)
     finally:
         if driver:
             logger.info("Fechando o navegador")
