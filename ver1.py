@@ -10,6 +10,7 @@ import os
 import shutil
 import time
 import logging
+import re
 from datetime import datetime, timedelta
 from selenium.common.exceptions import TimeoutException
 
@@ -131,61 +132,61 @@ def processar_empresa(driver, wait, empresa, data_inicial, data_final, ano, nome
     try:
         # Primeiro, identificar todos os bancos disponíveis para esta empresa
         bancos_disponiveis = identificar_bancos_disponiveis(driver, wait, empresa, logger)
-        
+
         # Verificar se encontramos algum banco
         if not bancos_disponiveis:
             erro_msg = f"Nenhum banco encontrado para a empresa {empresa}"
             logger.warning(erro_msg)
             return False
-            
+
         logger.info(f"Total de bancos encontrados: {len(bancos_disponiveis)}")
-        
+
         # Processar cada banco e suas contas
         contas_processadas = []
-        
+
         for banco_nome, botoes_info in bancos_disponiveis.items():
             logger.info(f"Processando banco {banco_nome} com {len(botoes_info)} conta(s)...")
-            
+
             for i, botao_info in enumerate(botoes_info):
                 try:
                     # Para cada conta, voltar à página inicial e selecionar a empresa novamente
                     driver.get(URL_EXTRATO)
                     logger.info(f"Acessando página de extrato para processar conta {i+1} do banco {banco_nome}")
-                    
+
                     # Preencher empresa
                     campo_empresa = wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="autocompleter-empresa-autocomplete"]')))
                     campo_empresa.clear()
                     campo_empresa.send_keys(empresa)
                     campo_empresa.send_keys(Keys.RETURN)
                     time.sleep(3)
-                    
+
                     # Clicar no botão de bancos
                     botao_bancos = wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="bankDiv"]')))
                     botao_bancos.click()
                     time.sleep(2)
-                    
+
                     # Encontrar o botão correto usando as informações armazenadas
                     classe_botao = botao_info['classe']
                     id_botao = botao_info['id']
-                    
+
                     # Encontrar todos os botões com a classe correta
                     todos_botoes = driver.find_elements(By.CLASS_NAME, classe_botao)
                     botao_encontrado = None
-                    
+
                     # Procurar o botão com o ID correto
                     for b in todos_botoes:
                         if b.get_attribute('id') == id_botao:
                             botao_encontrado = b
                             break
-                    
+
                     if not botao_encontrado:
                         logger.warning(f"Botão com ID {id_botao} não encontrado para o banco {banco_nome}")
                         continue
-                    
+
                     logger.info(f"Processando conta {i+1} do banco {banco_nome} (ID: {id_botao})")
                     botao_encontrado.click()
                     time.sleep(10)
-                    
+
                     # Preencher datas
                     campo_data_ini = wait.until(EC.presence_of_element_located((By.ID, 'initialDate')))
                     campo_data_ini.clear()
@@ -203,6 +204,36 @@ def processar_empresa(driver, wait, empresa, data_inicial, data_final, ano, nome
                     logger.info("Botão processar clicado, aguardando processamento...")
                     time.sleep(7)
 
+                    # Verificar se todos os lançamentos foram feitos
+                    try:
+                        info_element = wait.until(EC.presence_of_element_located((By.ID, 'empInfo')))
+                        info_text = info_element.text
+                        logger.info(f"Informação de lançamentos: {info_text}")
+
+                        # Extrair a informação de lançamentos (ex: "0/136")
+                        lancamentos_match = re.search(r'(\d+)/(\d+)$', info_text)
+
+                        if lancamentos_match:
+                            lancamentos_feitos = int(lancamentos_match.group(1))
+                            lancamentos_total = int(lancamentos_match.group(2))
+
+                            logger.info(f"Lançamentos: {lancamentos_feitos} de {lancamentos_total}")
+
+                            # Verificar se todos os lançamentos foram feitos
+                            if lancamentos_feitos < lancamentos_total:
+                                erro_msg = f"Nem todos os lançamentos foram feitos: {lancamentos_feitos}/{lancamentos_total}"
+                                logger.warning(erro_msg)
+
+                                # Registrar o erro no arquivo de log
+                                registrar_erro_no_arquivo(empresa, banco_nome, erro_msg, ano, nome_mes, logger)
+
+                                logger.info("Pulando para o próximo banco ou empresa...")
+                                continue
+                            else:
+                                logger.info(f"Todos os lançamentos foram feitos corretamente: {lancamentos_feitos}/{lancamentos_total}")
+                    except Exception as e:
+                        logger.warning(f"Não foi possível verificar os lançamentos: {str(e)}")
+
                     # Exportar dados
                     botao_exportar = WebDriverWait(driver, 30).until(
                         EC.element_to_be_clickable((By.ID, 'export-data'))
@@ -212,7 +243,7 @@ def processar_empresa(driver, wait, empresa, data_inicial, data_final, ano, nome
 
                     # Variável para controlar se o download foi iniciado
                     download_iniciado = False
-                    
+
                     # Baixar arquivo
                     try:
                         botao_baixar = WebDriverWait(driver, 30).until(
@@ -274,11 +305,11 @@ def identificar_bancos_disponiveis(driver, wait, empresa, logger):
     Retorna um dicionário com os bancos e suas contas.
     """
     logger.info(f"Identificando bancos disponíveis para a empresa: {empresa}")
-    
+
     # Acessar a página de extrato
     driver.get(URL_EXTRATO)
     logger.info(f"Acessando URL de extrato: {URL_EXTRATO}")
-    
+
     # Preencher empresa
     campo_empresa = wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="autocompleter-empresa-autocomplete"]')))
     campo_empresa.clear()
@@ -286,28 +317,28 @@ def identificar_bancos_disponiveis(driver, wait, empresa, logger):
     campo_empresa.send_keys(Keys.RETURN)
     logger.info(f"Empresa '{empresa}' selecionada")
     time.sleep(3)
-    
+
     # Selecionar banco
     botao_bancos = wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="bankDiv"]')))
     botao_bancos.click()
     logger.info("Botão de bancos clicado")
     time.sleep(2)
-    
+
     # Estrutura para armazenar informações sobre os bancos disponíveis
     bancos_disponiveis = {}
-    
+
     # Verificar cada tipo de banco
     for banco_nome, classe_botao in BANCO_CLASSES.items():
         try:
             # Verificar se existe o botão para este banco
             todos_botoes = driver.find_elements(By.CLASS_NAME, classe_botao)
-            
+
             # Filtrar apenas os botões de conta bancária (excluir os botões de exclusão)
             botoes_validos = []
             for botao in todos_botoes:
                 id_botao = botao.get_attribute('id')
                 texto_botao = botao.text.strip()
-                
+
                 # Verificar se o ID NÃO começa com "delete-" e se o texto é "Ver Lançamentos"
                 if (id_botao and not id_botao.startswith('delete-') and
                     texto_botao.lower() == "ver lançamentos"):
@@ -318,7 +349,7 @@ def identificar_bancos_disponiveis(driver, wait, empresa, logger):
                         'classe': classe_botao
                     })
                     logger.debug(f"Botão válido encontrado: ID={id_botao}, Texto={texto_botao}")
-            
+
             if not botoes_validos:
                 logger.info(f"Banco {banco_nome} (classe {classe_botao}) não encontrado para esta empresa")
             else:
@@ -328,7 +359,7 @@ def identificar_bancos_disponiveis(driver, wait, empresa, logger):
         except Exception as e:
             erro_msg = f"Erro ao verificar banco {banco_nome}: {str(e)}"
             logger.error(erro_msg)
-    
+
     return bancos_disponiveis
 
 # Função para registrar erros no arquivo de log
