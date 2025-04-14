@@ -1,0 +1,14 @@
+- Ler empresas do arquivo Excel.
+- Filtra entradas válidas e identifica formatos de dados
+- Gerencia a abertura do navegador e login no sistema
+- Vai para a página de Banco Online
+- Seleciona a empresa
+- Identifica os bancos disponíveis
+- Seleciona o banco
+- Seleciona a conta bancária
+- Define o período de data
+- Clica no botão de download
+- Aguarda o download
+- Move o arquivo para o destino
+- Faz o loop para todas contas bancárias e bancos
+- Tratamente de erros e tentativa

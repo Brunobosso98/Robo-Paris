@@ -1,0 +1,80 @@
+2025-04-14 10:08:31,773 - INFO - === INICIANDO ROBÔ PARIS ===
+2025-04-14 10:08:32,284 - INFO - Diretório base de destino criado: I:\Contabilidade\Banco Online
+2025-04-14 10:08:32,284 - INFO - Diretório de download configurado: C:\Users\Administrador\Downloads
+2025-04-14 10:08:32,284 - INFO - Período calculado: 01/03/2025 a 31/03/2025 (Ano: 2025, Mês: março)
+2025-04-14 10:08:32,285 - INFO - Inicializando o driver do Chrome
+2025-04-14 10:08:32,285 - INFO - ====== WebDriver manager ======
+2025-04-14 10:08:34,441 - INFO - Get LATEST chromedriver version for google-chrome
+2025-04-14 10:08:34,686 - INFO - Get LATEST chromedriver version for google-chrome
+2025-04-14 10:08:34,729 - INFO - Get LATEST chromedriver version for google-chrome
+2025-04-14 10:08:34,857 - INFO - WebDriver version 135.0.7049.84 selected
+2025-04-14 10:08:34,861 - INFO - Modern chrome version https://storage.googleapis.com/chrome-for-testing-public/135.0.7049.84/win32/chromedriver-win32.zip
+2025-04-14 10:08:34,862 - INFO - About to download new driver from https://storage.googleapis.com/chrome-for-testing-public/135.0.7049.84/win32/chromedriver-win32.zip
+2025-04-14 10:08:35,060 - INFO - Driver downloading response is 200
+2025-04-14 10:08:35,410 - INFO - Get LATEST chromedriver version for google-chrome
+2025-04-14 10:08:35,583 - INFO - Driver has been saved in cache [C:\Users\Administrador\.wdm\drivers\chromedriver\win64\135.0.7049.84]
+2025-04-14 10:08:36,896 - INFO - Driver inicializado com sucesso
+2025-04-14 10:08:36,897 - INFO - Iniciando processo de login
+2025-04-14 10:08:39,300 - INFO - Acessando URL de login: https://portal.ssparisi.com.br/prime/login.php
+2025-04-14 10:08:39,423 - INFO - Usuário preenchido
+2025-04-14 10:08:39,522 - INFO - Senha preenchida
+2025-04-14 10:08:46,510 - INFO - Login realizado com sucesso
+2025-04-14 10:08:46,511 - INFO - Lendo planilha de empresas: empresas.xlsx
+2025-04-14 10:08:48,293 - INFO - Total de empresas na planilha: 3
+2025-04-14 10:08:48,295 - INFO - 
+==================================================
+2025-04-14 10:08:48,295 - INFO - EMPRESA 1/3: LUSITANO
+2025-04-14 10:08:48,295 - INFO - ==================================================
+2025-04-14 10:08:48,296 - INFO - Tentativa 1/2 para empresa LUSITANO
+2025-04-14 10:08:48,296 - INFO - Processando empresa: LUSITANO - Período: 01/03/2025 a 31/03/2025
+2025-04-14 10:08:48,296 - INFO - Identificando bancos disponíveis para a empresa: LUSITANO
+2025-04-14 10:08:49,946 - INFO - Acessando URL de extrato: https://portal.ssparisi.com.br/prime/app/ctrl/GestaoBankExtratoSS.php
+2025-04-14 10:08:50,099 - INFO - Empresa 'LUSITANO' selecionada
+2025-04-14 10:08:53,210 - INFO - Botão de bancos clicado
+2025-04-14 10:08:55,224 - INFO - Banco sicredi (classe button-34) não encontrado para esta empresa
+2025-04-14 10:08:55,277 - INFO - Encontrado(s) 1 conta(s) do banco itau
+2025-04-14 10:08:55,321 - INFO - Encontrado(s) 1 conta(s) do banco santander
+2025-04-14 10:08:55,332 - INFO - Banco bradesco (classe button-15) não encontrado para esta empresa
+2025-04-14 10:08:55,332 - INFO - Total de bancos encontrados: 2
+2025-04-14 10:08:55,333 - INFO - Processando banco itau com 1 conta(s)...
+2025-04-14 10:08:56,871 - INFO - Acessando página de extrato para processar conta 1 do banco itau
+2025-04-14 10:09:02,124 - INFO - Processando conta 1 do banco itau (ID: account-8050)
+2025-04-14 10:09:12,286 - INFO - Data inicial preenchida: 01/03/2025
+2025-04-14 10:09:12,383 - INFO - Data final preenchida: 31/03/2025
+2025-04-14 10:09:20,533 - INFO - Botão processar clicado, aguardando processamento...
+2025-04-14 10:09:23,547 - WARNING - Sem lançamentos disponíveis para esta conta no período selecionado
+2025-04-14 10:09:25,525 - INFO - Pasta ano/mês criada: I:\Contabilidade\Banco Online\2025\março
+2025-04-14 10:09:26,004 - INFO - Erro registrado no arquivo de log: I:\Contabilidade\Banco Online\2025\março\erros_download_20250414.txt
+2025-04-14 10:09:26,005 - INFO - Pulando para o próximo banco ou empresa...
+2025-04-14 10:09:26,005 - INFO - Processando banco santander com 1 conta(s)...
+2025-04-14 10:09:27,332 - INFO - Acessando página de extrato para processar conta 1 do banco santander
+2025-04-14 10:09:32,572 - INFO - Processando conta 1 do banco santander (ID: account-8051)
+2025-04-14 10:09:42,727 - INFO - Data inicial preenchida: 01/03/2025
+2025-04-14 10:09:42,842 - INFO - Data final preenchida: 31/03/2025
+2025-04-14 10:09:52,316 - INFO - Botão processar clicado, aguardando processamento...
+2025-04-14 10:09:55,324 - WARNING - Sem lançamentos disponíveis para esta conta no período selecionado
+2025-04-14 10:09:55,328 - INFO - Erro registrado no arquivo de log: I:\Contabilidade\Banco Online\2025\março\erros_download_20250414.txt
+2025-04-14 10:09:55,329 - INFO - Pulando para o próximo banco ou empresa...
+2025-04-14 10:09:55,329 - WARNING - Nenhuma conta bancária foi processada para a empresa LUSITANO
+2025-04-14 10:09:55,329 - WARNING - Falha ao processar empresa LUSITANO na tentativa 1
+2025-04-14 10:09:55,329 - INFO - Aguardando 5 segundos antes da próxima tentativa 2/2...
+2025-04-14 10:10:00,331 - INFO - Tentativa 2/2 para empresa LUSITANO
+2025-04-14 10:10:00,331 - INFO - Processando empresa: LUSITANO - Período: 01/03/2025 a 31/03/2025
+2025-04-14 10:10:00,332 - INFO - Identificando bancos disponíveis para a empresa: LUSITANO
+2025-04-14 10:10:03,517 - INFO - Acessando URL de extrato: https://portal.ssparisi.com.br/prime/app/ctrl/GestaoBankExtratoSS.php
+2025-04-14 10:10:03,644 - INFO - Empresa 'LUSITANO' selecionada
+2025-04-14 10:10:06,730 - INFO - Botão de bancos clicado
+2025-04-14 10:10:08,743 - INFO - Banco sicredi (classe button-34) não encontrado para esta empresa
+2025-04-14 10:10:08,792 - INFO - Encontrado(s) 1 conta(s) do banco itau
+2025-04-14 10:10:08,831 - INFO - Encontrado(s) 1 conta(s) do banco santander
+2025-04-14 10:10:08,840 - INFO - Banco bradesco (classe button-15) não encontrado para esta empresa
+2025-04-14 10:10:08,840 - INFO - Total de bancos encontrados: 2
+2025-04-14 10:10:08,840 - INFO - Processando banco itau com 1 conta(s)...
+2025-04-14 10:10:14,369 - INFO - Acessando página de extrato para processar conta 1 do banco itau
+2025-04-14 10:10:47,954 - ERROR - Erro ao processar conta 1 do banco itau: Message: 
+
+2025-04-14 10:10:47,954 - INFO - Processando banco santander com 1 conta(s)...
+2025-04-14 10:10:49,669 - INFO - Acessando página de extrato para processar conta 1 do banco santander
+2025-04-14 10:10:53,485 - INFO - Fechando o navegador
+2025-04-14 10:10:53,525 - WARNING - Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'ConnectionResetError(10054, 'Foi forçado o cancelamento de uma conexão existente pelo host remoto', None, 10054, None)': /session/ddea5373ef5828100c3e4bd48dc55cc0
+2025-04-14 10:10:57,614 - WARNING - Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000024E9C192E90>: Failed to establish a new connection: [WinError 10061] Nenhuma conexão pôde ser feita porque a máquina de destino as recusou ativamente')': /session/ddea5373ef5828100c3e4bd48dc55cc0
