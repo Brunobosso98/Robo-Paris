@@ -1,7 +1,7 @@
 *.xlsx
-
+logs
 *.txt
-
+logs
 cred.json
 
 venv/

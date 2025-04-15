@@ -167,7 +167,7 @@ def processar_empresa(driver, wait, empresa, data_inicial, data_final, ano, nome
                     # Clicar no botão de bancos
                     botao_bancos = wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="bankDiv"]')))
                     botao_bancos.click()
-                    time.sleep(2)
+                    time.sleep(3)
 
                     # Encontrar o botão correto usando as informações armazenadas
                     classe_botao = botao_info['classe']
@@ -189,7 +189,7 @@ def processar_empresa(driver, wait, empresa, data_inicial, data_final, ano, nome
 
                     logger.info(f"Processando conta {i+1} do banco {banco_nome} (ID: {id_botao})")
                     botao_encontrado.click()
-                    time.sleep(10)
+                    time.sleep(12)
 
                     # Preencher datas
                     campo_data_ini = wait.until(EC.presence_of_element_located((By.ID, 'initialDate')))
@@ -282,7 +282,7 @@ def processar_empresa(driver, wait, empresa, data_inicial, data_final, ano, nome
                         botao_baixar = WebDriverWait(driver, 30).until(
                             EC.element_to_be_clickable((By.CLASS_NAME, 'btn-success'))
                         )
-                        # botao_baixar.click()
+                        botao_baixar.click()
                         logger.info(f"Download iniciado para {empresa} - {banco_nome} - conta {i+1}")
                         time.sleep(5)  # Aguardar o download iniciar
                         download_iniciado = True
@@ -565,19 +565,6 @@ def main():
                     logger.error(erro_msg)
                     # Incrementar o contador de tentativas
                     tentativa += 1
-
-                    # Se foi a última tentativa, registrar os erros no arquivo de log
-                    if tentativa > max_tentativas:
-                        logger.error(f"Todas as tentativas falharam para empresa {empresa}")
-
-                        # Verificar se este erro já foi registrado para evitar duplicação
-                        chave_erro = f"{empresa}_todas_tentativas"
-                        if chave_erro not in erros_registrados:
-                            registrar_erro_no_arquivo(empresa, "Todos", erro_msg, ano, nome_mes, logger)
-                            erros_registrados[chave_erro] = True
-                    else:
-                        logger.info(f"Aguardando 5 segundos antes da próxima tentativa {tentativa}/{max_tentativas}...")
-                        time.sleep(5)
 
             if not sucesso:
                 erro_msg = f"Todas as {max_tentativas} tentativas falharam para empresa {empresa}"
