@@ -354,7 +354,7 @@ def identificar_bancos_disponiveis(driver, wait, empresa, logger):
     logger.info(f"Acessando URL de extrato: {URL_EXTRATO}")
 
     # Preencher empresa
-    time.sleep(2)
+    time.sleep(3)
     campo_empresa = wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="autocompleter-empresa-autocomplete"]')))
     campo_empresa.clear()
     campo_empresa.send_keys(empresa)
@@ -490,56 +490,7 @@ def mover_arquivo(ano, nome_mes, logger):
         logger.warning("Arquivo não encontrado para mover")
         return None
 
-def gerar_relatorio_pdf(resumo_empresas, caminho_pdf="relatorios/relatorio_execucao.pdf"):
-    if not os.path.exists("relatorios"):
-        os.makedirs("relatorios")
-    pdf = FPDF()
-    pdf.add_page()
-    pdf.set_auto_page_break(auto=True, margin=15)
-
-    # Logo
-    try:
-        pdf.image("conttrolare.png", x=10, y=8, w=33)
-    except Exception:
-        pass  # Caso não encontre o logo, segue sem ele
-    pdf.set_font("Arial", 'B', 16)
-    pdf.cell(0, 10, "Relatório de Execução - RoboParis", ln=True, align="C")
-    pdf.ln(10)
-    pdf.set_font("Arial", '', 12)
-    pdf.cell(0, 10, f"Data/Hora: {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}", ln=True, align="C")
-    pdf.ln(10)
-
-    # Resumo geral
-    total = len(resumo_empresas)
-    sucesso = sum(1 for r in resumo_empresas if r["status"] == "Sucesso")
-    erro = total - sucesso
-    pdf.set_font("Arial", '', 12)
-    pdf.cell(0, 10, f"Total de empresas: {total}", ln=True)
-    pdf.cell(0, 10, f"Empresas processadas com sucesso: {sucesso}", ln=True)
-    pdf.cell(0, 10, f"Com erro: {erro}", ln=True)
-    pdf.ln(10)
-
-    # Tabela detalhada
-    pdf.set_font("Arial", 'B', 11)
-    pdf.cell(60, 10, "Empresa", border=1)
-    pdf.cell(30, 10, "Status", border=1)
-    pdf.cell(90, 10, "Mensagem", border=1)
-    pdf.ln()
-    pdf.set_font("Arial", '', 10)
-    for item in resumo_empresas:
-        pdf.cell(60, 10, item["empresa"], border=1)
-        pdf.cell(30, 10, item["status"], border=1)
-        mensagem = item["mensagem"]
-        y_before = pdf.get_y()
-        pdf.multi_cell(90, 10, mensagem, border=1)
-        y_after = pdf.get_y()
-        if y_after - y_before > 10:
-            pdf.set_y(y_after)
-        else:
-            pdf.ln()
-    pdf.output(caminho_pdf)
-
-def gerar_relatorio_pdf_detalhado(resumo_bancos, caminho_pdf="relatorios/relatorio_execucao_detalhado.pdf"):
+def gerar_relatorio_pdf(resumo_bancos, caminho_pdf="relatorios/relatorio_execucao_detalhado.pdf"):
     if not os.path.exists("relatorios"):
         os.makedirs("relatorios")
     pdf = FPDF()
@@ -551,7 +502,7 @@ def gerar_relatorio_pdf_detalhado(resumo_bancos, caminho_pdf="relatorios/relator
     except Exception:
         pass
     pdf.set_font("Arial", 'B', 16)
-    pdf.cell(0, 10, "Relatório Detalhado de Execução - RoboParis", ln=True, align="C")
+    pdf.cell(0, 10, "Relatório de Execução - RoboParis", ln=True, align="C")
     pdf.ln(10)
     pdf.set_font("Arial", '', 12)
     pdf.cell(0, 10, f"Data/Hora: {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}", ln=True, align="C")
@@ -578,17 +529,18 @@ def gerar_relatorio_pdf_detalhado(resumo_bancos, caminho_pdf="relatorios/relator
     pdf.ln()
     pdf.set_font("Arial", '', 10)
     for item in resumo_bancos:
-        pdf.cell(50, 10, item["empresa"], border=1)
-        pdf.cell(35, 10, item["banco"], border=1)
-        pdf.cell(25, 10, item["status"], border=1)
-        mensagem = item["mensagem"]
-        y_before = pdf.get_y()
-        pdf.multi_cell(80, 10, mensagem, border=1)
-        y_after = pdf.get_y()
-        if y_after - y_before > 10:
-            pdf.set_y(y_after)
-        else:
-            pdf.ln()
+        if item["status"] != "Sucesso":
+            pdf.cell(50, 10, item["empresa"], border=1)
+            pdf.cell(35, 10, item["banco"], border=1)
+            pdf.cell(25, 10, item["status"], border=1)
+            mensagem = item["mensagem"]
+            y_before = pdf.get_y()
+            pdf.multi_cell(80, 10, mensagem, border=1)
+            y_after = pdf.get_y()
+            if y_after - y_before > 10:
+                pdf.set_y(y_after)
+            else:
+                pdf.ln()
     pdf.output(caminho_pdf)
 
 def main():
@@ -699,11 +651,8 @@ def main():
         logger.info(f"Empresas processadas com sucesso: {empresas_processadas}")
         logger.info(f"Empresas com erro: {empresas_com_erro}")
         logger.info("=== FIM DA EXECUÇÃO ===\n")
-        if resumo_empresas:
-            gerar_relatorio_pdf(resumo_empresas)
-            logger.info("Relatório PDF gerado com sucesso.")
         if resumo_bancos:
-            gerar_relatorio_pdf_detalhado(resumo_bancos)
+            gerar_relatorio_pdf(resumo_bancos)
             logger.info("Relatório PDF detalhado gerado com sucesso.")
     except Exception as e:
         erro_msg = f"Erro crítico na execução: {str(e)}"
