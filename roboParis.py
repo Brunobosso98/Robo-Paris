@@ -13,6 +13,7 @@ import logging
 import re
 from datetime import datetime, timedelta
 from selenium.common.exceptions import TimeoutException
+from fpdf import FPDF
 
 # Configurações
 DOWNLOAD_DIR = os.path.join(os.path.expanduser("~"), "Downloads")
@@ -348,6 +349,7 @@ def identificar_bancos_disponiveis(driver, wait, empresa, logger):
     campo_empresa.clear()
     campo_empresa.send_keys(empresa)
     campo_empresa.send_keys(Keys.RETURN)
+    campo_empresa.send_keys(Keys.RETURN)
     logger.info(f"Empresa '{empresa}' selecionada")
     time.sleep(3)
 
@@ -470,6 +472,55 @@ def mover_arquivo(ano, nome_mes, logger):
         logger.warning("Arquivo não encontrado para mover")
         return None
 
+def gerar_relatorio_pdf(resumo_empresas, caminho_pdf="relatorios/relatorio_execucao.pdf"):
+    if not os.path.exists("relatorios"):
+        os.makedirs("relatorios")
+    pdf = FPDF()
+    pdf.add_page()
+    pdf.set_auto_page_break(auto=True, margin=15)
+
+    # Logo
+    try:
+        pdf.image("conttrolare.png", x=10, y=8, w=33)
+    except Exception:
+        pass  # Caso não encontre o logo, segue sem ele
+    pdf.set_font("Arial", 'B', 16)
+    pdf.cell(0, 10, "Relatório de Execução - RoboParis", ln=True, align="C")
+    pdf.ln(10)
+    pdf.set_font("Arial", '', 12)
+    pdf.cell(0, 10, f"Data/Hora: {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}", ln=True, align="C")
+    pdf.ln(10)
+
+    # Resumo geral
+    total = len(resumo_empresas)
+    sucesso = sum(1 for r in resumo_empresas if r["status"] == "Sucesso")
+    erro = total - sucesso
+    pdf.set_font("Arial", '', 12)
+    pdf.cell(0, 10, f"Total de empresas: {total}", ln=True)
+    pdf.cell(0, 10, f"Processadas com sucesso: {sucesso}", ln=True)
+    pdf.cell(0, 10, f"Com erro: {erro}", ln=True)
+    pdf.ln(10)
+
+    # Tabela detalhada
+    pdf.set_font("Arial", 'B', 11)
+    pdf.cell(60, 10, "Empresa", border=1)
+    pdf.cell(30, 10, "Status", border=1)
+    pdf.cell(90, 10, "Mensagem", border=1)
+    pdf.ln()
+    pdf.set_font("Arial", '', 10)
+    for item in resumo_empresas:
+        pdf.cell(60, 10, item["empresa"], border=1)
+        pdf.cell(30, 10, item["status"], border=1)
+        mensagem = item["mensagem"]
+        y_before = pdf.get_y()
+        pdf.multi_cell(90, 10, mensagem, border=1)
+        y_after = pdf.get_y()
+        if y_after - y_before > 10:
+            pdf.set_y(y_after)
+        else:
+            pdf.ln()
+    pdf.output(caminho_pdf)
+
 def main():
     # Configurar logging
     logger = setup_logging()
@@ -516,6 +567,7 @@ def main():
             return
 
         # Processar cada empresa
+        resumo_empresas = []
         empresas_processadas = 0
         empresas_com_erro = 0
 
@@ -531,7 +583,7 @@ def main():
             max_tentativas = 2
             tentativa = 1
             sucesso = False
-
+            erro_msg = ""
             while tentativa <= max_tentativas and not sucesso:
                 try:
                     logger.info(f"Tentativa {tentativa}/{max_tentativas} para empresa {empresa}")
@@ -542,6 +594,7 @@ def main():
                         logger.info(f"Empresa {empresa} processada com sucesso na tentativa {tentativa}")
                         empresas_processadas += 1
                         sucesso = True
+                        erro_msg = "Processada com sucesso"
                     else:
                         logger.warning(f"Falha ao processar empresa {empresa} na tentativa {tentativa}")
                         # Incrementar o contador de tentativas
@@ -565,20 +618,25 @@ def main():
                     logger.error(erro_msg)
                     # Incrementar o contador de tentativas
                     tentativa += 1
-
             if not sucesso:
                 erro_msg = f"Todas as {max_tentativas} tentativas falharam para empresa {empresa}"
                 logger.error(erro_msg)
                 # Não precisamos registrar novamente aqui, já foi registrado na última tentativa
                 empresas_com_erro += 1
-
+            resumo_empresas.append({
+                "empresa": empresa,
+                "status": "Sucesso" if sucesso else "Erro",
+                "mensagem": erro_msg
+            })
         # Resumo final
         logger.info("\n\n=== RESUMO DA EXECUÇÃO ===")
         logger.info(f"Total de empresas: {len(df)}")
         logger.info(f"Empresas processadas com sucesso: {empresas_processadas}")
         logger.info(f"Empresas com erro: {empresas_com_erro}")
         logger.info("=== FIM DA EXECUÇÃO ===\n")
-
+        if resumo_empresas:
+            gerar_relatorio_pdf(resumo_empresas)
+            logger.info("Relatório PDF gerado com sucesso.")
     except Exception as e:
         erro_msg = f"Erro crítico na execução: {str(e)}"
         if logger:
