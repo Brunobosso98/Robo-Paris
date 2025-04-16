@@ -14,6 +14,7 @@ import re
 from datetime import datetime, timedelta
 from selenium.common.exceptions import TimeoutException
 from fpdf import FPDF
+from collections import defaultdict
 
 # Configurações
 DOWNLOAD_DIR = os.path.join(os.path.expanduser("~"), "Downloads")
@@ -127,12 +128,14 @@ def fazer_login(driver, wait, logger):
         logger.error(f"Erro ao fazer login: {str(e)}")
         raise
 
-def processar_empresa(driver, wait, empresa, data_inicial, data_final, ano, nome_mes, logger, erros_registrados=None):
+def processar_empresa(driver, wait, empresa, data_inicial, data_final, ano, nome_mes, logger, erros_registrados=None, resumo_bancos=None):
     logger.info(f"Processando empresa: {empresa} - Período: {data_inicial} a {data_final}")
 
     # Inicializar o dicionário de erros registrados se não for fornecido
     if erros_registrados is None:
         erros_registrados = {}
+    if resumo_bancos is None:
+        resumo_bancos = []
 
     try:
         # Primeiro, identificar todos os bancos disponíveis para esta empresa
@@ -142,6 +145,7 @@ def processar_empresa(driver, wait, empresa, data_inicial, data_final, ano, nome
         if not bancos_disponiveis:
             erro_msg = f"Nenhum banco encontrado para a empresa {empresa}"
             logger.warning(erro_msg)
+            adicionar_resumo_banco_unico(resumo_bancos, empresa, "-", "Erro", erro_msg)
             return False
 
         logger.info(f"Total de bancos encontrados: {len(bancos_disponiveis)}")
@@ -153,6 +157,8 @@ def processar_empresa(driver, wait, empresa, data_inicial, data_final, ano, nome
             logger.info(f"Processando banco {banco_nome} com {len(botoes_info)} conta(s)...")
 
             for i, botao_info in enumerate(botoes_info):
+                status_banco = "Sucesso"
+                mensagem_banco = "Processado com sucesso"
                 try:
                     # Para cada conta, voltar à página inicial e selecionar a empresa novamente
                     driver.get(URL_EXTRATO)
@@ -185,7 +191,10 @@ def processar_empresa(driver, wait, empresa, data_inicial, data_final, ano, nome
                             break
 
                     if not botao_encontrado:
-                        logger.warning(f"Botão com ID {id_botao} não encontrado para o banco {banco_nome}")
+                        mensagem_banco = f"Botão com ID {id_botao} não encontrado para o banco {banco_nome}"
+                        logger.warning(mensagem_banco)
+                        status_banco = "Erro"
+                        adicionar_resumo_banco_unico(resumo_bancos, empresa, banco_nome, status_banco, mensagem_banco)
                         continue
 
                     logger.info(f"Processando conta {i+1} do banco {banco_nome} (ID: {id_botao})")
@@ -217,16 +226,14 @@ def processar_empresa(driver, wait, empresa, data_inicial, data_final, ano, nome
                         )
 
                         if modal_sem_lancamentos:
-                            erro_msg = "Sem lançamentos disponíveis para esta conta no período selecionado"
-                            logger.warning(erro_msg)
-
-                            # Verificar se este erro já foi registrado para evitar duplicação
+                            mensagem_banco = "Sem lançamentos disponíveis para esta conta no período selecionado"
+                            logger.warning(mensagem_banco)
                             chave_erro = f"{empresa}_{banco_nome}_sem_lancamentos"
                             if chave_erro not in erros_registrados:
-                                registrar_erro_no_arquivo(empresa, banco_nome, erro_msg, ano, nome_mes, logger)
+                                registrar_erro_no_arquivo(empresa, banco_nome, mensagem_banco, ano, nome_mes, logger)
                                 erros_registrados[chave_erro] = True
-
-                            logger.info("Pulando para o próximo banco ou empresa...")
+                            status_banco = "Erro"
+                            adicionar_resumo_banco_unico(resumo_bancos, empresa, banco_nome, status_banco, mensagem_banco)
                             continue
                     except TimeoutException:
                         # Não encontrou o modal, o que é bom - significa que há lançamentos
@@ -252,16 +259,14 @@ def processar_empresa(driver, wait, empresa, data_inicial, data_final, ano, nome
 
                             # Verificar se todos os lançamentos foram feitos
                             if lancamentos_feitos < lancamentos_total:
-                                erro_msg = f"Nem todos os lançamentos foram feitos: {lancamentos_feitos}/{lancamentos_total}"
-                                logger.warning(erro_msg)
-
-                                # Verificar se este erro já foi registrado para evitar duplicação
+                                mensagem_banco = f"Nem todos os lançamentos foram feitos: {lancamentos_feitos}/{lancamentos_total}"
+                                logger.warning(mensagem_banco)
                                 chave_erro = f"{empresa}_{banco_nome}_lancamentos"
                                 if chave_erro not in erros_registrados:
-                                    registrar_erro_no_arquivo(empresa, banco_nome, erro_msg, ano, nome_mes, logger)
+                                    registrar_erro_no_arquivo(empresa, banco_nome, mensagem_banco, ano, nome_mes, logger)
                                     erros_registrados[chave_erro] = True
-
-                                logger.info("Pulando para o próximo banco ou empresa...")
+                                status_banco = "Erro"
+                                adicionar_resumo_banco_unico(resumo_bancos, empresa, banco_nome, status_banco, mensagem_banco)
                                 continue
                             else:
                                 logger.info(f"Todos os lançamentos foram feitos corretamente: {lancamentos_feitos}/{lancamentos_total}")
@@ -288,17 +293,17 @@ def processar_empresa(driver, wait, empresa, data_inicial, data_final, ano, nome
                         time.sleep(5)  # Aguardar o download iniciar
                         download_iniciado = True
                     except TimeoutException:
-                        erro_msg = f"Botão de download não encontrado para {empresa} - {banco_nome} - conta {i+1}"
-                        logger.warning(erro_msg)
-
-                        # Verificar se há mensagem de 'sem dados'
+                        mensagem_banco = f"Botão de download não encontrado para {empresa} - {banco_nome} - conta {i+1}"
+                        logger.warning(mensagem_banco)
+                        status_banco = "Erro"
                         try:
                             msg_sem_dados = driver.find_element(By.XPATH, "//div[contains(text(), 'Nenhum registro encontrado')]")
                             if msg_sem_dados:
-                                sem_dados_msg = "Nenhum registro encontrado para esta conta no período selecionado"
-                                logger.info(sem_dados_msg)
+                                mensagem_banco = "Nenhum registro encontrado para esta conta no período selecionado"
+                                logger.info(mensagem_banco)
+                                adicionar_resumo_banco_unico(resumo_bancos, empresa, banco_nome, status_banco, mensagem_banco)
                         except:
-                            pass
+                            adicionar_resumo_banco_unico(resumo_bancos, empresa, banco_nome, status_banco, mensagem_banco)
 
                     # Mover o arquivo baixado apenas se o download foi iniciado
                     nome_arquivo = None
@@ -308,15 +313,19 @@ def processar_empresa(driver, wait, empresa, data_inicial, data_final, ano, nome
                     if nome_arquivo:
                         logger.info(f"Arquivo processado e movido: {nome_arquivo}")
                         contas_processadas.append(f"{banco_nome}_{i+1}")
+                        mensagem_banco = f"Arquivo processado: {nome_arquivo}"
+                        status_banco = "Sucesso"
+                        adicionar_resumo_banco_unico(resumo_bancos, empresa, banco_nome, status_banco, mensagem_banco)
                     else:
-                        erro_msg = f"Não foi possível mover o arquivo para {empresa} - {banco_nome} - conta {i+1}"
-                        logger.warning(erro_msg)
+                        mensagem_banco = f"Não foi possível mover o arquivo para {empresa} - {banco_nome} - conta {i+1}"
+                        logger.warning(mensagem_banco)
+                        status_banco = "Erro"
+                        adicionar_resumo_banco_unico(resumo_bancos, empresa, banco_nome, status_banco, mensagem_banco)
                 except Exception as e:
-                    erro_msg = f"Erro ao processar conta {i+1} do banco {banco_nome}: {str(e)}"
-                    logger.error(erro_msg)
-                    # Não usamos continue aqui para permitir que o código continue processando
-                    # as próximas contas do mesmo banco e outros bancos
-
+                    mensagem_banco = f"Erro ao processar conta {i+1} do banco {banco_nome}: {str(e)}"
+                    logger.error(mensagem_banco)
+                    status_banco = "Erro"
+                    adicionar_resumo_banco_unico(resumo_bancos, empresa, banco_nome, status_banco, mensagem_banco)
         if not contas_processadas:
             erro_msg = f"Nenhuma conta bancária foi processada para a empresa {empresa}"
             logger.warning(erro_msg)
@@ -345,6 +354,7 @@ def identificar_bancos_disponiveis(driver, wait, empresa, logger):
     logger.info(f"Acessando URL de extrato: {URL_EXTRATO}")
 
     # Preencher empresa
+    time.sleep(2)
     campo_empresa = wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="autocompleter-empresa-autocomplete"]')))
     campo_empresa.clear()
     campo_empresa.send_keys(empresa)
@@ -374,10 +384,8 @@ def identificar_bancos_disponiveis(driver, wait, empresa, logger):
                 id_botao = botao.get_attribute('id')
                 texto_botao = botao.text.strip()
 
-                # Verificar se o ID NÃO começa com "delete-" e se o texto é "Ver Lançamentos"
-                if (id_botao and not id_botao.startswith('delete-') and
-                    texto_botao.lower() == "ver lançamentos"):
-                    # Armazenar informações sobre o botão para uso posterior
+                # Armazenar informações sobre o botão para uso posterior
+                if id_botao and not id_botao.startswith('delete-') and texto_botao.lower() == "ver lançamentos":
                     botoes_validos.append({
                         'id': id_botao,
                         'texto': texto_botao,
@@ -432,6 +440,16 @@ def registrar_erro_no_arquivo(empresa, banco, motivo, ano, nome_mes, logger):
         logger.info(f"Erro registrado no arquivo de log: {log_file}")
     except Exception as e:
         logger.error(f"Erro ao registrar no arquivo de log: {str(e)}")
+
+def adicionar_resumo_banco_unico(resumo_bancos, empresa, banco, status, mensagem):
+    entrada = {
+        "empresa": empresa,
+        "banco": banco,
+        "status": status,
+        "mensagem": mensagem
+    }
+    if entrada not in resumo_bancos:
+        resumo_bancos.append(entrada)
 
 def mover_arquivo(ano, nome_mes, logger):
     # Criar estrutura de diretórios: I:\Contabilidade\Banco Online\{ano}\{mes}
@@ -497,7 +515,7 @@ def gerar_relatorio_pdf(resumo_empresas, caminho_pdf="relatorios/relatorio_execu
     erro = total - sucesso
     pdf.set_font("Arial", '', 12)
     pdf.cell(0, 10, f"Total de empresas: {total}", ln=True)
-    pdf.cell(0, 10, f"Processadas com sucesso: {sucesso}", ln=True)
+    pdf.cell(0, 10, f"Empresas processadas com sucesso: {sucesso}", ln=True)
     pdf.cell(0, 10, f"Com erro: {erro}", ln=True)
     pdf.ln(10)
 
@@ -521,6 +539,58 @@ def gerar_relatorio_pdf(resumo_empresas, caminho_pdf="relatorios/relatorio_execu
             pdf.ln()
     pdf.output(caminho_pdf)
 
+def gerar_relatorio_pdf_detalhado(resumo_bancos, caminho_pdf="relatorios/relatorio_execucao_detalhado.pdf"):
+    if not os.path.exists("relatorios"):
+        os.makedirs("relatorios")
+    pdf = FPDF()
+    pdf.add_page()
+    pdf.set_auto_page_break(auto=True, margin=15)
+
+    try:
+        pdf.image("conttrolare.png", x=10, y=8, w=33)
+    except Exception:
+        pass
+    pdf.set_font("Arial", 'B', 16)
+    pdf.cell(0, 10, "Relatório Detalhado de Execução - RoboParis", ln=True, align="C")
+    pdf.ln(10)
+    pdf.set_font("Arial", '', 12)
+    pdf.cell(0, 10, f"Data/Hora: {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}", ln=True, align="C")
+    pdf.ln(10)
+
+    empresas = set([item['empresa'] for item in resumo_bancos])
+    bancos = set([item['banco'] for item in resumo_bancos])
+    total = len(resumo_bancos)
+    sucesso = sum(1 for r in resumo_bancos if r["status"] == "Sucesso")
+    erro = total - sucesso
+    pdf.set_font("Arial", '', 12)
+    pdf.cell(0, 10, f"Total de empresas: {len(empresas)}", ln=True)
+    pdf.cell(0, 10, f"Total de bancos: {len(bancos)}", ln=True)
+    pdf.cell(0, 10, f"Total de processamentos: {total}", ln=True)
+    pdf.cell(0, 10, f"Processados com sucesso: {sucesso}", ln=True)
+    pdf.cell(0, 10, f"Com erro: {erro}", ln=True)
+    pdf.ln(10)
+
+    pdf.set_font("Arial", 'B', 11)
+    pdf.cell(50, 10, "Empresa", border=1)
+    pdf.cell(35, 10, "Banco", border=1)
+    pdf.cell(25, 10, "Status", border=1)
+    pdf.cell(80, 10, "Mensagem", border=1)
+    pdf.ln()
+    pdf.set_font("Arial", '', 10)
+    for item in resumo_bancos:
+        pdf.cell(50, 10, item["empresa"], border=1)
+        pdf.cell(35, 10, item["banco"], border=1)
+        pdf.cell(25, 10, item["status"], border=1)
+        mensagem = item["mensagem"]
+        y_before = pdf.get_y()
+        pdf.multi_cell(80, 10, mensagem, border=1)
+        y_after = pdf.get_y()
+        if y_after - y_before > 10:
+            pdf.set_y(y_after)
+        else:
+            pdf.ln()
+    pdf.output(caminho_pdf)
+
 def main():
     # Configurar logging
     logger = setup_logging()
@@ -528,6 +598,7 @@ def main():
 
     # Dicionário para armazenar erros já registrados (evitar duplicação)
     erros_registrados = {}
+    resumo_bancos = []
 
     # Verificar se o diretório base de destino existe
     if not os.path.exists(BASE_DESTINO_DIR):
@@ -557,14 +628,8 @@ def main():
             logger.error(f"Arquivo de empresas não encontrado: {EXCEL_PATH}")
             return
 
-        # Ler planilha
-        try:
-            logger.info(f"Lendo planilha de empresas: {EXCEL_PATH}")
-            df = pd.read_excel(EXCEL_PATH)
-            logger.info(f"Total de empresas na planilha: {len(df)}")
-        except Exception as e:
-            logger.error(f"Erro ao ler planilha: {str(e)}")
-            return
+        df = pd.read_excel(EXCEL_PATH)
+        logger.info(f"Total de empresas na planilha: {len(df)}")
 
         # Processar cada empresa
         resumo_empresas = []
@@ -588,7 +653,7 @@ def main():
                 try:
                     logger.info(f"Tentativa {tentativa}/{max_tentativas} para empresa {empresa}")
                     # Passar o dicionário de erros registrados para a função processar_empresa
-                    resultado = processar_empresa(driver, wait, empresa, data_inicial, data_final, ano, nome_mes, logger, erros_registrados)
+                    resultado = processar_empresa(driver, wait, empresa, data_inicial, data_final, ano, nome_mes, logger, erros_registrados, resumo_bancos)
 
                     if resultado:
                         logger.info(f"Empresa {empresa} processada com sucesso na tentativa {tentativa}")
@@ -637,13 +702,15 @@ def main():
         if resumo_empresas:
             gerar_relatorio_pdf(resumo_empresas)
             logger.info("Relatório PDF gerado com sucesso.")
+        if resumo_bancos:
+            gerar_relatorio_pdf_detalhado(resumo_bancos)
+            logger.info("Relatório PDF detalhado gerado com sucesso.")
     except Exception as e:
         erro_msg = f"Erro crítico na execução: {str(e)}"
         if logger:
             logger.error(erro_msg)
             try:
                 # Tentar registrar o erro no arquivo de log
-                data_inicial, data_final, ano, nome_mes = calcular_datas_mes_anterior()
                 registrar_erro_no_arquivo("Sistema", "Todos", erro_msg, ano, nome_mes, logger)
             except Exception as log_error:
                 logger.error(f"Não foi possível registrar o erro no arquivo: {str(log_error)}")
