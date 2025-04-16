@@ -553,17 +553,18 @@ def gerar_relatorio_pdf(resumo_bancos, caminho_pdf="relatorios/relatorio_execuca
     pdf.ln()
     pdf.set_font("Arial", '', 10)
     for item in resumo_bancos:
-        pdf.cell(50, 10, item["empresa"], border=1)
-        pdf.cell(35, 10, item["banco"], border=1)
-        pdf.cell(25, 10, item["status"], border=1)
-        mensagem = item["mensagem"]
-        y_before = pdf.get_y()
-        pdf.multi_cell(80, 10, mensagem, border=1)
-        y_after = pdf.get_y()
-        if y_after - y_before > 10:
-            pdf.set_y(y_after)
-        else:
-            pdf.ln()
+        if item["status"] != "Sucesso":
+            pdf.cell(50, 10, item["empresa"], border=1)
+            pdf.cell(35, 10, item["banco"], border=1)
+            pdf.cell(25, 10, item["status"], border=1)
+            mensagem = item["mensagem"]
+            y_before = pdf.get_y()
+            pdf.multi_cell(80, 10, mensagem, border=1)
+            y_after = pdf.get_y()
+            if y_after - y_before > 10:
+                pdf.set_y(y_after)
+            else:
+                pdf.ln()
     pdf.output(caminho_pdf)
 
 def main():
@@ -674,9 +675,6 @@ def main():
         logger.info(f"Empresas processadas com sucesso: {empresas_processadas}")
         logger.info(f"Empresas com erro: {empresas_com_erro}")
         logger.info("=== FIM DA EXECUÇÃO ===\n")
-        if resumo_empresas:
-            gerar_relatorio_pdf(resumo_empresas)
-            logger.info("Relatório PDF gerado com sucesso.")
         if resumo_bancos:
             gerar_relatorio_pdf(resumo_bancos)
             logger.info("Relatório PDF detalhado gerado com sucesso.")
