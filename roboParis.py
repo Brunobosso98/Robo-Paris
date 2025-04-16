@@ -15,6 +15,7 @@ from datetime import datetime, timedelta
 from selenium.common.exceptions import TimeoutException
 from fpdf import FPDF
 from collections import defaultdict
+import openpyxl
 
 # Configurações
 DOWNLOAD_DIR = os.path.join(os.path.expanduser("~"), "Downloads")
@@ -490,9 +491,11 @@ def mover_arquivo(ano, nome_mes, logger):
         logger.warning("Arquivo não encontrado para mover")
         return None
 
-def gerar_relatorio_pdf(resumo_bancos, caminho_pdf="relatorios/relatorio_execucao_detalhado.pdf"):
-    if not os.path.exists("relatorios"):
-        os.makedirs("relatorios")
+def gerar_relatorio_pdf(resumo_bancos, ano, nome_mes):
+    destino_dir = os.path.join(BASE_DESTINO_DIR, str(ano), nome_mes)
+    os.makedirs(destino_dir, exist_ok=True)  # Garante que o diretório será criado se não existir
+
+    caminho_pdf = os.path.join(destino_dir, "relatorio_execucao_detalhado.pdf")
     pdf = FPDF()
     pdf.add_page()
     pdf.set_auto_page_break(auto=True, margin=15)
@@ -652,7 +655,7 @@ def main():
         logger.info(f"Empresas com erro: {empresas_com_erro}")
         logger.info("=== FIM DA EXECUÇÃO ===\n")
         if resumo_bancos:
-            gerar_relatorio_pdf(resumo_bancos)
+            gerar_relatorio_pdf(resumo_bancos, ano, nome_mes)
             logger.info("Relatório PDF detalhado gerado com sucesso.")
     except Exception as e:
         erro_msg = f"Erro crítico na execução: {str(e)}"
