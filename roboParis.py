@@ -480,6 +480,19 @@ def mover_arquivo(ano, nome_mes, logger):
         nome_arquivo_original = os.path.basename(arquivo_encontrado)
         caminho_destino = os.path.join(destino_dir, nome_arquivo_original)
 
+        # Se já existir arquivo com o mesmo nome, adicionar sufixo incremental
+        if os.path.exists(caminho_destino):
+            base, ext = os.path.splitext(nome_arquivo_original)
+            contador = 1
+            while True:
+                nome_arquivo_novo = f"{base}_{contador}{ext}"
+                caminho_destino_novo = os.path.join(destino_dir, nome_arquivo_novo)
+                if not os.path.exists(caminho_destino_novo):
+                    caminho_destino = caminho_destino_novo
+                    nome_arquivo_original = nome_arquivo_novo
+                    break
+                contador += 1
+
         try:
             shutil.move(arquivo_encontrado, caminho_destino)
             logger.info(f"Arquivo movido para: {caminho_destino}")
@@ -546,6 +559,28 @@ def gerar_relatorio_pdf(resumo_bancos, ano, nome_mes):
                 pdf.ln()
     pdf.output(caminho_pdf)
 
+def concatenar_extratos_txt(lista_arquivos, arquivo_saida, num_linhas_cabecalho=1, logger=None):
+    """
+    Concatena vários arquivos TXT de extrato em um único arquivo, mantendo o cabeçalho apenas do primeiro.
+    Args:
+        lista_arquivos (list): Lista de caminhos dos arquivos TXT a serem concatenados.
+        arquivo_saida (str): Caminho do arquivo TXT final.
+        num_linhas_cabecalho (int): Número de linhas de cabeçalho a manter (default=1).
+        logger: Logger opcional para registrar informações.
+    """
+    if logger:
+        logger.info(f"Concatenando {len(lista_arquivos)} arquivos em {arquivo_saida}")
+    with open(arquivo_saida, 'w', encoding='utf-8') as fout:
+        for idx, arquivo in enumerate(lista_arquivos):
+            with open(arquivo, 'r', encoding='utf-8') as fin:
+                linhas = fin.readlines()
+                if idx == 0:
+                    fout.writelines(linhas)  # Inclui cabeçalho do primeiro
+                else:
+                    fout.writelines(linhas[num_linhas_cabecalho:])  # Remove cabeçalho dos demais
+    if logger:
+        logger.info(f"Arquivo concatenado salvo em: {arquivo_saida}")
+
 def main():
     # Configurar logging
     logger = setup_logging()
@@ -591,7 +626,6 @@ def main():
         empresas_processadas = 0
         empresas_com_erro = 0
 
-        # Usamos as datas calculadas automaticamente para todas as empresas
         for index, row in df.iterrows():
             empresa = row['Empresa']
 
@@ -599,33 +633,34 @@ def main():
             logger.info(f"EMPRESA {index+1}/{len(df)}: {empresa}")
             logger.info(f"{'='*50}")
 
-            # Tentar processar a empresa até 3 vezes em caso de falha
             max_tentativas = 2
             tentativa = 1
             sucesso = False
             erro_msg = ""
+            arquivos_extratos_empresa = []  # <- Lista para armazenar arquivos da empresa
             while tentativa <= max_tentativas and not sucesso:
                 try:
                     logger.info(f"Tentativa {tentativa}/{max_tentativas} para empresa {empresa}")
                     # Passar o dicionário de erros registrados para a função processar_empresa
+                    # Modificação: retorna também os nomes dos arquivos processados
                     resultado = processar_empresa(driver, wait, empresa, data_inicial, data_final, ano, nome_mes, logger, erros_registrados, resumo_bancos)
 
-                    if resultado:
-                        logger.info(f"Empresa {empresa} processada com sucesso na tentativa {tentativa}")
+                    # Buscar arquivos .txt na pasta destino da empresa após processar com sucesso
+                    destino_dir = os.path.join(BASE_DESTINO_DIR, str(ano), nome_mes)
+                    arquivos_empresa = [os.path.join(destino_dir, f) for f in os.listdir(destino_dir) if f.lower().endswith('.txt') and empresa.lower().replace(' ', '') in f.lower().replace(' ', '')]
+
+                    if resultado and len(arquivos_empresa) > 0:
+                        arquivos_extratos_empresa = arquivos_empresa
+                        logger.info(f"Arquivos de extrato encontrados para concatenação: {arquivos_extratos_empresa}")
                         empresas_processadas += 1
                         sucesso = True
                         erro_msg = "Processada com sucesso"
                     else:
                         logger.warning(f"Falha ao processar empresa {empresa} na tentativa {tentativa}")
-                        # Incrementar o contador de tentativas
                         tentativa += 1
-
-                        # Se foi a última tentativa, registrar os erros no arquivo de log
                         if tentativa > max_tentativas:
                             erro_msg = f"Falha ao processar empresa {empresa} após {max_tentativas} tentativas"
                             logger.error(erro_msg)
-
-                            # Verificar se este erro já foi registrado para evitar duplicação
                             chave_erro = f"{empresa}_todas_tentativas"
                             if chave_erro not in erros_registrados:
                                 registrar_erro_no_arquivo(empresa, "Todos", erro_msg, ano, nome_mes, logger)
@@ -636,13 +671,18 @@ def main():
                 except Exception as e:
                     erro_msg = f"Erro não tratado ao processar {empresa} na tentativa {tentativa}: {str(e)}"
                     logger.error(erro_msg)
-                    # Incrementar o contador de tentativas
                     tentativa += 1
             if not sucesso:
                 erro_msg = f"Todas as {max_tentativas} tentativas falharam para empresa {empresa}"
                 logger.error(erro_msg)
-                # Não precisamos registrar novamente aqui, já foi registrado na última tentativa
                 empresas_com_erro += 1
+            else:
+                # Só concatena se houver mais de um arquivo
+                if len(arquivos_extratos_empresa) > 1:
+                    # Pega o nome original do arquivo baixado (sem sufixo incremental)
+                    nome_arquivo_original = min([os.path.basename(f).split('_')[0] + os.path.splitext(f)[1] for f in arquivos_extratos_empresa])
+                    arquivo_saida = os.path.join(destino_dir, nome_arquivo_original)
+                    concatenar_extratos_txt(arquivos_extratos_empresa, arquivo_saida, num_linhas_cabecalho=1, logger=logger)
             resumo_empresas.append({
                 "empresa": empresa,
                 "status": "Sucesso" if sucesso else "Erro",
