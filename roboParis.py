@@ -355,7 +355,7 @@ def identificar_bancos_disponiveis(driver, wait, empresa, logger):
     logger.info(f"Acessando URL de extrato: {URL_EXTRATO}")
 
     # Preencher empresa
-    time.sleep(3)
+    time.sleep(2)
     campo_empresa = wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="autocompleter-empresa-autocomplete"]')))
     campo_empresa.clear()
     campo_empresa.send_keys(empresa)
