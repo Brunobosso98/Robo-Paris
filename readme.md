@@ -1,4 +1,4 @@
-## Configurações Iniciais: 
+# Configurações Iniciais: 
 Define diretórios de download, caminhos para arquivos de empresas (empresas.xlsx), URLs de login e extrato, além de dicionários para meses em português e mapeamento de bancos.
 ## Datas do Mês Anterior: 
 Calcula automaticamente o período do mês anterior para buscar os extratos.

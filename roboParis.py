@@ -45,8 +45,7 @@ BANCO_CLASSES = {
     "sicredi": "button-34",
     "itau": "button-23",
     "santander": "button-32",
-    "bradesco": "button-15"
-}
+    "bradesco": "button-15"}
 
 # Função para calcular as datas do mês anterior
 def calcular_datas_mes_anterior():
