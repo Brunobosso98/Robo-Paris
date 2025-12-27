@@ -9,6 +9,8 @@ import pandas as pd
 import time
 import os
 
+from config import RELACIONAMENTOS_PASSWORD, RELACIONAMENTOS_USERNAME
+
 EXCEL_PATH = "empresas.xlsx"
 URL_LOGIN = "https://portal.ssparisi.com.br/prime/login.php"
 URL_RELACIONAMENTO = "https://portal.ssparisi.com.br/prime/app/ls/Relacionamento.php"
@@ -26,11 +28,11 @@ def fazer_login(driver, wait):
     
     campo_usuario = wait.until(EC.presence_of_element_located((By.ID, "User")))
     campo_usuario.clear()
-    campo_usuario.send_keys("mauro@conttrolare.com.br")
+    campo_usuario.send_keys(RELACIONAMENTOS_USERNAME)
 
     campo_senha = wait.until(EC.presence_of_element_located((By.ID, "Pass")))
     campo_senha.clear()
-    campo_senha.send_keys("Juni4724")
+    campo_senha.send_keys(RELACIONAMENTOS_PASSWORD)
 
     botao_login = wait.until(EC.element_to_be_clickable((By.ID, "SubLogin")))
     botao_login.click()

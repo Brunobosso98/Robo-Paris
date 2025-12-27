@@ -17,6 +17,8 @@ from fpdf import FPDF
 from collections import defaultdict
 import openpyxl
 
+from config import SSPARISI_PASSWORD, SSPARISI_USERNAME
+
 # Configurações
 DOWNLOAD_DIR = os.path.join(os.path.expanduser("~"), "Downloads")
 BASE_DESTINO_DIR = r"I:\Contabilidade\Banco Online"
@@ -135,12 +137,12 @@ def fazer_login(driver, wait, logger):
 
         campo_usuario = wait.until(EC.presence_of_element_located((By.ID, "User")))
         campo_usuario.clear()
-        campo_usuario.send_keys("bruno.martins@conttrolare.com.br")
+        campo_usuario.send_keys(SSPARISI_USERNAME)
         logger.info("Usuário preenchido")
 
         campo_senha = wait.until(EC.presence_of_element_located((By.ID, "Pass")))
         campo_senha.clear()
-        campo_senha.send_keys("1234")
+        campo_senha.send_keys(SSPARISI_PASSWORD)
         logger.info("Senha preenchida")
 
         botao_login = wait.until(EC.element_to_be_clickable((By.ID, "SubLogin")))
